@@ -1,1 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --grey: #171717;
+  --light-blue: #13b0f5;
+  --pink: #e70faa;
+}
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+html {
+  background: #252839;
+}
+
+/*TEXT GRADIENT EN O DEG */
+.text-gradient {
+  color: #13b0f5;
+  background-image: -webkit-linear-gradient(0deg, #13b0f5 0%, #e70faa 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/*TEXT GRADIENT EN 135 DEG */
+.text-gradient315 {
+  color: #13b0f5;
+  background-image: -webkit-linear-gradient(315deg, #13b0f5 0%, #e70faa 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/*BACKGROUND GRADIENT EN 135 DEG */
+.bg-gradient135 {
+  background: linear-gradient(135deg, #13b0f5, #e70faa);
+}

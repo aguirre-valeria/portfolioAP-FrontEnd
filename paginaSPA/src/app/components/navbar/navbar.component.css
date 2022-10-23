@@ -1,0 +1,97 @@
+/* NAVBAR STYLE */
+.hamburger {
+  transition: 0.3s;
+  z-index: 100;
+}
+
+.collapsing,
+.show {
+  position: absolute;
+  top: 0;
+  left: -15px;
+  z-index: 50;
+  width: 100vw;
+  height: 100vh;
+  visibility: hidden;
+  opacity: 0;
+  background: #222;
+  transition: 0.2s;
+  transition-delay: 0.4s;
+  background: #252839;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  visibility: visible;
+  opacity: 100;
+  transition: 0.2s;
+  transition-delay: 0s;
+}
+
+.collapsing .nav-list,
+.show .nav-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.collapsing .nav-item,
+.show .nav-item {
+  position: relative;
+  list-style: none;
+}
+
+.collapsing .nav-link,
+.show .nav-link {
+  position: relative;
+  font-size: 2em;
+  text-decoration: none;
+  line-height: 1.1em;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+  display: inline;
+}
+
+.show .nav-link::before {
+  content: attr(data-text);
+  position: absolute;
+  color: var(--clr);
+  width: 0;
+  overflow: hidden;
+  transition: 1s;
+  border-right: 8px solid var(--clr);
+  -webkit-text-stroke: 1px var(--clr);
+}
+
+.show .nav-link:hover::before {
+  width: 95%;
+  filter: drop-shadow(0 0 25px var(--clr));
+}
+
+.icon-contact {
+  display: none;
+}
+
+.icon-contact:hover {
+  text-decoration: underline;
+}
+
+.show .icon-contact {
+  display: initial;
+}
+
+.collapsing .icon-contact,
+.show .icon-contact {
+  margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .collapsing .nav-link,
+  .show .nav-link {
+    font-size: 4em;
+  }
+}
+/* END NAVBAR STYLE */
