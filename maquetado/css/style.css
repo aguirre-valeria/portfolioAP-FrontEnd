@@ -1,0 +1,465 @@
+:root {
+  --grey: #171717;
+  --light-blue: #13b0f5;
+  --pink: #e70faa;
+}
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #252839;
+}
+
+/*TEXT GRADIENT EN O DEG */
+.text-gradient {
+  color: #13b0f5;
+  background-image: -webkit-linear-gradient(0deg, #13b0f5 0%, #e70faa 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/*TEXT GRADIENT EN 135 DEG */
+.text-gradient315 {
+  color: #13b0f5;
+  background-image: -webkit-linear-gradient(315deg, #13b0f5 0%, #e70faa 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/*BACKGROUND GRADIENT EN 135 DEG */
+.bg-gradient135 {
+  background: linear-gradient(135deg, #13b0f5, #e70faa);
+}
+
+/* MENU HAMBURGER */
+
+/*Buttom hamburger */
+.hamburger {
+  transition: 0.3s;
+  z-index: 100;
+}
+
+/* NAVBAR STYLE */
+.collapsing, .show {
+  position: absolute;
+  top: 0;
+  left: -15px;
+  z-index: 50;
+  width: 100vw;
+  height: 100vh;
+  visibility: hidden;
+  opacity: 0;
+  background: #222;
+  transition: 0.2s;
+  transition-delay: 0.4s;
+  background: #252839;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  visibility: visible;
+  opacity: 100;
+  transition: 0.2s;
+  transition-delay: 0s;
+}
+
+.collapsing .nav-list, .show .nav-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.collapsing .nav-item, .show .nav-item {
+  position: relative;
+  list-style: none;
+}
+
+.collapsing .nav-link, .show .nav-link {
+  position: relative;
+  font-size: 2em;
+  text-decoration: none;
+  line-height: 1.1em;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+  display: inline;
+}
+
+.show .nav-link::before {
+  content: attr(data-text);
+  position: absolute;
+  color: var(--clr);
+  width: 0;
+  overflow: hidden;
+  transition: 1s;
+  border-right: 8px solid var(--clr);
+  -webkit-text-stroke: 1px var(--clr);
+}
+
+.show .nav-link:hover::before {
+  width: 95%;
+  filter: drop-shadow(0 0 25px var(--clr));
+}
+
+.icon-contact {
+  display: none;
+}
+
+.icon-contact:hover {
+  text-decoration: underline;
+}
+
+.show .icon-contact {
+  display: initial;
+}
+
+.collapsing .icon-contact, .show .icon-contact {
+  margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .collapsing .nav-link, .show .nav-link {
+    font-size: 4em;
+  }
+}
+
+/* SECTION BANNER */
+.title-hola {
+  position: relative;
+  top: -270px;
+  left: -200px;
+  background-color: #252839;
+  font-size: 2.5rem;
+}
+
+.title-banner {
+  position: relative;
+  top: -250px;
+  left: -13px;
+  background-color: #252839;
+  font-size: 2.5em;
+}
+
+@media (min-width: 768px) {
+  .title-hola {
+    top: -20rem;
+    left: -15rem;
+    font-size: 3em;
+  }
+
+  .title-banner {
+    top: -18rem;
+    font-size: 3em;
+  }
+}
+
+@media (min-width: 938px) {
+  .title-hola {
+    top: -25rem;
+    left: 3.5rem;
+  }
+
+  .title-banner {
+    top: -18rem;
+    left: -10rem;
+  }
+}
+
+/* SECTION ABOUT ME */
+.about__selfie {
+  background: url("../assets/img/Selfie.jpeg") no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  border-top: 10px solid #13b0f5;
+  border-left: 10px solid #13b0f5;
+  border-right: 10px solid #e70faa;
+  border-bottom: 10px solid #e70faa;
+  width: 14rem;
+  height: 14rem;
+  max-width: 100%;
+}
+
+.about__selfie:hover {
+  transform: scale(1.1);
+}
+
+/* SECTION EXPERIENCIE AND EDUCATION */
+.main-timeline {
+  position: relative;
+}
+
+.timeline:before {
+  content: "";
+  width: 3px;
+  height: 80%;
+  background: #c6c6c6;
+  margin: 0;
+  position: absolute;
+  top: 30px;
+  left: 25px;
+  right: 0;
+}
+
+.timeline {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.icon {
+  width: 3rem;
+  height: 3rem;
+  line-height: 1.5rem;
+  margin: auto 0;
+  position: absolute;
+  top: .5rem;
+}
+
+.icon:before,
+.icon:after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: absolute;
+  transition: all 0.33s ease-out 0s;
+}
+
+.icon:before {
+  background: linear-gradient(135deg, #13b0f5, #e70faa);
+  border: 2px solid #232323;
+  left: -3px;
+}
+
+.icon:after {
+  border: 2px solid #c6c6c6;
+  left: 3px;
+}
+
+.timeline:hover .icon:before {
+  left: 3px;
+}
+
+.timeline:hover .icon:after {
+  left: -3px;
+}
+
+.timeline:hover, .main-timeline:hover {
+  left: 6px;
+}
+
+.timeline:hover, .main-timeline:hover {
+  left: -6px;
+}
+
+.title {
+  font-size: 1.25em;
+}
+
+.date {
+  font-size: .75em;
+}
+
+/* SECTION SKILLS */
+.container__skills .skill {
+  position: relative;
+  width: 220px;
+  height: 250px;
+  background: #2a2a2a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(42, 42, 42, 0.22);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.6px);
+  -webkit-backdrop-filter: blur(3.6px);
+  border: 1px solid rgba(42, 42, 42, 0.21);
+}
+
+.container__skills .skill .percent {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+
+.container__skills .skill .percent svg {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  transform: rotate(270deg);
+}
+
+.container__skills .skill .percent svg circle {
+  width: 100%;
+  height: 100%;
+  fill: transparent;
+  stroke-width: 2;
+  stroke: #191919;
+  transform: translate(5px, 5px);
+}
+
+.container__skills .skill .percent svg circle:nth-child(2) {
+  stroke: var(--clr);
+  stroke-dasharray: 440;
+  stroke-dashoffset: calc(440 - (440 * var(--num) / 100));
+  opacity: 0;
+  animation: fadeIn 1s linear forwards 2;
+  animation-delay: 2.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.dot {
+  position: absolute;
+  inset: 5px;
+  z-index: 10;
+  animation: animateDot 2s linear forwards;
+}
+
+@keyframes animateDot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(calc(3.6deg * var(--num)));
+  }
+}
+
+.dot::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--clr);
+  box-shadow: 0 0 10px var(--clr), 0 0 30px var(--clr);
+}
+
+.number {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  opacity: 0;
+  animation: fadeIn 1s linear forwards;
+  animation-delay: 2.5s;
+}
+
+.number h6 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 2.5em;
+}
+
+.number h6 span {
+  font-weight: 300;
+  color: #ffffff;
+  font-size: 0.5em;
+}
+
+.number p {
+  font-weight: 300;
+  font-size: 0.75em;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+/*END SECTION SKILLS*
+
+/* CARD PROJECTS IN 3D */
+.front-face,
+.contents,
+.back-face {
+  position: absolute;
+}
+
+.center {
+  height: 300px;
+  width: 450px;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.front-face,
+.back-face {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+  background-size: cover;
+  background-position: center;
+  transform: translateY(0deg);
+  border-radius: 10px;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.contents {
+  left: 0%;
+  top: 50%;
+  width: 100%;
+  perspective: 1000px;
+  transform: translateY(-50%) translateZ(60px) scale(0.94);
+}
+
+.front-face img {
+  height: 300px;
+  width: 450px;
+  object-fit: cover;
+}
+
+.back-face {
+  transform: rotateY(180deg);
+  background: linear-gradient(45deg, #043348 0%, #032535 100%);
+}
+.back {
+  color: white;
+}
+.back h2 {
+  font-size: 2em;
+  padding-bottom: 5px;
+}
+.back p {
+  font-size: 0.8em;
+}
+.center:hover > .back-face {
+  transform: rotateY(0deg);
+}
+.center:hover > .front-face {
+  transform: rotateY(-180deg);
+}
+/* END CARD PROJECTS IN 3D */
+
+/*SECCIÓN : SKILLS */
+
+@media (max-width: 575px) {
+}
+
+@media (min-width: 576px) and (max-width: 991px) {
+}
+
+@media (min-width: 991px) and (max-width: 1199px) {
+}
