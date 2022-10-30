@@ -1,89 +1,365 @@
 <!--SECTION PROJECTS-->
 <section class="section-projects container-fluid py-5 my-5" id="projects">
-    <div class="text-center">
-        <h3 class="fs-1 text-gradient315 fw-bold d-inline">Proyectos</h3>
-    </div>
+  <div class="text-end pe-4 me-4">
+    <button
+      type="button"
+      class="btn btn-success fw-bold m-2"
+      (click)="openModal('add')"
+      data-bs-toggle="modal"
+      data-bs-target="#addProjectModal"
+    >
+      AGREGAR PROYECTO  
 
-    <div class="row justify-content-center my-5 mx-sm-2">
-        <div class="col-lg-4 center my-sm-2 px-0 m-sm-2">
-            <div class="front-face">
-            <div class="contents front">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(22).webp" class="d-block w-100" alt="Canyon at Nigh"/>
-            </div>
-            </div>
-            <div class="back-face">
-            <div class="contents back">
-                <h2>
-                    PROYECTO 1
-                </h2>
-                <p class="px-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. In fugit ea culpa eius, nostrum dolores magni alias nesciunt quos provident! Provident, dolore consectetur inventore a nam aperiam impedit doloribus cupiditate!</p>
-                <div class="my-2 d-block">
-                    <a class="btn" href="#"><i class="bi bi-github text-light display-5"></i></a>
-                    <a class="btn" href="#"><i class="bi bi-code text-light display-5"></i></a>
-                </div>
-            </div>
-            </div>
+    </button>
+<!--     <button
+      type="button"
+      class="btn btn-secondary fw-bold m-2"
+      (click)="openModal('edit')"
+      data-bs-toggle="modal"
+      data-bs-target="#editProjectModal"
+    >
+      <i class="bi bi-pencil-square"></i>
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger fw-bold m-2"
+      (click)="openModal('delete')"
+      data-bs-toggle="modal"
+      data-bs-target="#deleteProjectModal"
+    >
+      <i class="bi bi-trash3-fill"></i>
+    </button> -->
+  </div>
+  <div class="text-center">
+    <h3 class="fs-1 text-gradient315 fw-bold d-inline">Proyectos</h3>
+  </div>
+
+  <div
+    class="row justify-content-center my-5 mx-sm-2"
+    *ngFor="let project of projects"
+  >
+    <div class="col-lg-4 center my-sm-2 px-0 m-sm-2">
+      <div class="text-end pe-4 me-4">
+        <button
+          type="button"
+          class="btn btn-secondary fw-bold m-2"
+          (click)="openModal('edit', project)"
+          data-bs-toggle="modal"
+          data-bs-target="#editProjectModal"
+        >
+          <i class="bi bi-pencil-square"></i>
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger fw-bold m-2"
+          (click)="openModal('delete', project)"
+          data-bs-toggle="modal"
+          data-bs-target="#deleteProjectModal"
+        >
+          <i class="bi bi-trash3-fill"></i>
+        </button>
+      </div>
+      <div class="front-face">
+        <div class="contents front">
+          <img
+            src="{{ project.urlPhoto }}"
+            class="d-block w-100"
+            alt="{{ project.titleProj }}"
+          />
         </div>
-
-        <div class="col-lg-4 center my-sm-2 px-0 m-sm-2">
-            <div class="front-face">
-            <div class="contents front">
-                <img src="https://cdn.pixabay.com/photo/2018/01/18/07/31/bitcoin-3089728_960_720.jpg" class="d-block w-100" alt="Canyon at Nigh"/>
-            </div>
-            </div>
-            <div class="back-face">
-            <div class="contents back">
-                <h2>
-                    PROYECTO 2
-                </h2>
-                <p class="px-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. In fugit ea culpa eius, nostrum dolores magni alias nesciunt quos provident! Provident, dolore consectetur inventore a nam aperiam impedit doloribus cupiditate!</p>
-                <div class="icons d-block">
-                    <a class="btn" href="#"><i class="bi bi-github text-light display-5"></i></a>
-                    <a class="btn" href="#"><i class="bi bi-code text-light display-5"></i></a>
-                </div>
-            </div>
-            </div>
-        </div> 
-
-        <div class="col-lg-4 center my-sm-2 px-0 m-sm-2">
-            <div class="front-face">
-            <div class="contents front">
-                <img src="https://cdn.pixabay.com/photo/2018/01/17/20/22/analytics-3088958_960_720.jpg" class="d-block w-100" alt="Canyon at Nigh"/>
-            </div>
-            </div>
-            <div class="back-face">
-            <div class="contents back">
-                <h2>
-                    PROYECTO 3
-                </h2>
-                <p class="px-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. In fugit ea culpa eius, nostrum dolores magni alias nesciunt quos provident! Provident, dolore consectetur inventore a nam aperiam impedit doloribus cupiditate!</p>
-                <div class="icons d-block">
-                    <a class="btn" href="#"><i class="bi bi-github text-light display-5"></i></a>
-                    <a class="btn" href="#"><i class="bi bi-code text-light display-5"></i></a>
-                </div>
-            </div>
-            </div>
-        </div> 
-
-        <div class="col-lg-4 center my-sm-2 px-0 m-sm-2">
-            <div class="front-face">
-            <div class="contents front">
-                <img src="https://cdn.pixabay.com/photo/2018/01/17/20/22/analytics-3088958_960_720.jpg" class="d-block w-100" alt="Canyon at Nigh"/>
-            </div>
-            </div>
-            <div class="back-face">
-            <div class="contents back">
-                <h2>
-                    PROYECTO 3
-                </h2>
-                <p class="px-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. In fugit ea culpa eius, nostrum dolores magni alias nesciunt quos provident! Provident, dolore consectetur inventore a nam aperiam impedit doloribus cupiditate!</p>
-                <div class="icons d-block">
-                    <a class="btn" href="#"><i class="bi bi-github text-light display-5"></i></a>
-                    <a class="btn" href="#"><i class="bi bi-code text-light display-5"></i></a>
-                </div>
-            </div>
-            </div>
+      </div>
+      <div class="back-face">
+        <div class="contents back">
+          <h2 *ngIf="project">
+            {{ project.titleProj }}
+          </h2>
+          <p *ngIf="project" class="px-2">{{ project.descriptionProj }}</p>
+          <div class="my-2 d-block">
+            <a *ngIf="project" class="btn" href="{{ project.urlGitHubProj }}"
+              ><i class="bi bi-github text-light display-5"></i
+            ></a>
+            <a *ngIf="project" class="btn" href="{{ project.urlDemo }}"
+              ><i class="bi bi-code text-light display-5"></i
+            ></a>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>
 <!--END SECTION PROJECTS-->
+
+<!--MODAL ADD PROJECT-->
+<div
+  class="modal fade"
+  id="addProjectModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="addProjectModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title fs-5" id="addProjectModalLabel">
+          Añadir Projecto
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!--FORM OF MODAL-->
+        <form #addForm="ngForm" (ngSubmit)="addProject(addForm)">
+          <div class="form-group">
+            <label for="titleProj">Título</label>
+            <input
+              type="text"
+              ngModel
+              name="titleProj"
+              class="form-control"
+              id="titleProj"
+              placeholder="Título del proyecto"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="descriptionProj">Descripción</label>
+            <input
+              type="text"
+              ngModel
+              name="descriptionProj"
+              class="form-control"
+              id="descripcionProj"
+              placeholder="Descripción del proyecto"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="urlPhoto">URL de Foto</label>
+            <input
+              type="text"
+              ngModel
+              name="urlPhoto"
+              class="form-control"
+              id="urlPhoto"
+              placeholder="URL foto del proyecto"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="urlGitHubProj">URL GitHub</label>
+            <input
+              type="text"
+              ngModel
+              name="urlGitHubProj"
+              class="form-control"
+              id="urlGitHubProj"
+              placeholder="URL de GitHub"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="urlDemo">URL Demo</label>
+            <input
+              type="text"
+              ngModel
+              name="urlDemo"
+              class="form-control"
+              id="urlDemo"
+              placeholder="URL de Demo"
+              required
+            />
+          </div>
+        </form>
+        <!--END FORM OF MODAL-->
+      </div>
+      <div class="modal-footer">
+        <button 
+          type="button" 
+          class="btn btn-secondary" 
+          data-bs-dismiss="modal"
+          >
+            Cancelar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          id="add-project-form"
+          (click)="addProject(addForm)"
+          data-bs-dismiss="modal"
+        >
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--END MODAL ADD PROJECT-->
+
+<!-- MODAL EDIT PROJECT -->
+<div
+  class="modal fade"
+  id="editProjectModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="editProjectModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title fs-5" id="updateProjectModalLabel">
+          Editar Proyecto {{editProject?.titleProj}}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form #editForm="ngForm" (ngSubmit)="updateProject(editForm.value)">
+          <div class="form-group">
+            <input
+              type="number"
+              ngModel="{{ editProject?.idProj }}"
+              name="idProj"
+              class="form-control d-none"
+              id="idProj"
+              placeholder="Identificador"
+            />
+            <label for="titleProj">Título del proyecto</label>
+            <input
+              type="text"
+              ngModel="{{editProject?.titleProj}}"
+              name="titleProj"
+              class="form-control"
+              id="titleProj"
+              placeholder="Titulo del proyecto"
+            />
+          </div>
+          
+          <div class="form-group">
+            <label for="descriptionProj">Descripción</label>
+            <input
+              type="text"
+              ngModel="{{ editProject?.descriptionProj }}"
+              name="descriptionProj"
+              class="form-control"
+              id="descriptionProj"
+              placeholder="Descripción del proyecto"
+            />
+          </div>
+          <div class="form-group">
+            <label for="urlPhoto">URL de Foto</label>
+            <input
+              type="text"
+              ngModel="{{ editProject?.urlPhoto }}"
+              name="urlPhoto"
+              class="form-control"
+              id="urlPhoto"
+              placeholder="URL foto del proyecto"
+            />
+          </div>
+          <div class="form-group">
+            <label for="urlGitHubProj">URL GitHub</label>
+            <input
+              type="text"
+              ngModel="{{ editProject?.urlGitHubProj }}"
+              name="urlGitHubProj"
+              class="form-control"
+              id="urlGitHubProj"
+              placeholder="URL de GitHub"
+            />
+          </div>
+          <div class="form-group">
+            <label for="urlDemo">URL Demo</label>
+            <input
+              type="text"
+              ngModel="{{ editProject?.urlDemo }}"
+              name="urlDemo"
+              class="form-control"
+              id="urlDemo"
+              placeholder="URL de Demo"
+            />
+          </div>
+        </form>
+        <!--END FORM OF MODAL-->
+      </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="edit-project-form"
+              (click)="updateProject(editForm.value)"
+              data-bs-dismiss="modal" 
+            >
+              Guardar
+            </button>
+          </div>
+      </div>
+    </div>
+  </div>
+<!--END MODAL EDIT PROJECT-->
+
+<!-- MODAL DELETE PROJECT -->
+<div
+  class="modal fade"
+  id="deleteProjectModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="deleteProjectModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title fs-5" id="deleteProjectModalLabel">
+          Borrar proyecto {{editProject?.titleProj}}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>¿Está seguro que desea eliminar este proyecto</p>
+        <p>{{deleteProject?.titleProj}}</p>
+        <!--END FORM OF MODAL-->
+      </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              No
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="edit-project-form"
+              (click)="onDeleteProject(deleteProject!.idProj)"
+              data-bs-dismiss="modal" 
+            >
+              Si
+            </button>
+          </div>
+      </div>
+    </div>
+  </div>
+<!--END MODAL DELETE PROJECT-->
