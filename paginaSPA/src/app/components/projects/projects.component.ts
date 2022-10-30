@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from 'src/app/models/user.model';
-import { UserService } from 'src/app/services/user.service';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
   selector: 'app-projects',
@@ -16,26 +16,27 @@ export class ProjectsComponent implements OnInit {
   public addProjects: Project | any;
   public editProject : Project | undefined;
   public deleteProject : Project | undefined;
-  constructor(private userService: UserService) { }
+  constructor(private projectService: ProjectService) { }
 
   ngOnInit(): void {
     this.getUser();
-    this.getProject();
+    this.getProjectByUser();
   }
 
-  public getUser(): void {
-    this.userService.getUser().subscribe( {
+   public getUser(): void {
+    this.projectService.getUser().subscribe( {
       next: (response: User) => {
         this.user = response;
+        console.log(this.user);
       },
       error:(error:HttpErrorResponse) => {
         alert(error.message);
       }
     })
-  }
+  } 
 
-  public getProject(): void {
-    this.userService.getUser().subscribe({
+  public getProjectByUser(): void {
+    this.projectService.getUser().subscribe({
       next: (response: User) => {
         this.projects = Object.values(response.projects);
       },
@@ -66,9 +67,9 @@ export class ProjectsComponent implements OnInit {
 
   public addProject(addForm: NgForm): void {
     this.user?.projects.push(addForm.value);
-    this.userService.addProject(this.user).subscribe({
+    this.projectService.addProject(this.user).subscribe({
       next: (response: User) => {
-        this.getProject();
+        this.getProjectByUser();
         addForm.reset();
       },
       error: (error: HttpErrorResponse) => {
@@ -80,9 +81,9 @@ export class ProjectsComponent implements OnInit {
 
   public updateProject(project: Project): void {
     this.editProject = project;
-    this.userService.updateProject(project).subscribe({
+    this.projectService.updateProject(project).subscribe({
       next: (response: Project) => {
-        this.getProject();
+        this.getProjectByUser();
       },
       error: (error: HttpErrorResponse) => {
         alert(error.message);
@@ -91,13 +92,13 @@ export class ProjectsComponent implements OnInit {
   }
 
   public onDeleteProject(idProj: number): void {
-    this.userService.deleteProject(idProj).subscribe({
+    this.projectService.deleteProject(idProj).subscribe({
       next: (response: void) => {
         alert("El proyecto ha sido eliminado.");
-        this.getProject();
+        this.getProjectByUser();
       },
       error: (error: HttpErrorResponse) => {
-        this.getProject();
+        this.getProjectByUser();
       },
     });
   }
