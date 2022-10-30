@@ -10,11 +10,12 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class AboutMeComponent implements OnInit {
   public user : User | undefined;
-  public editUser : User | undefined;
+  public editProfile : User | undefined;
   constructor(private userService : UserService) { }
 
   ngOnInit(): void {
     this.getUser();
+    
   }
 
   public getUser(): void {
@@ -23,6 +24,33 @@ export class AboutMeComponent implements OnInit {
         this.user = response;
       },
       error:(error:HttpErrorResponse) => {
+        alert(error.message);
+      }
+    })
+  }
+
+  public openModal(mode: string, user?: User) : void {
+    const container = document.getElementById('main-container');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.style.display = 'none';
+    button.setAttribute('data-toggle', 'modal');
+    if(mode === 'edit') {
+      this.editProfile = user;
+      button.setAttribute('data-target', '#editProfileModal');
+    }
+    container?.appendChild(button);
+    button.click();
+  }
+
+  public updateProfile(user: User): void {
+    this.editProfile = user;
+    this.userService.updateUser(user).subscribe({
+      next: (response: User) => {
+        this.getUser();
+        location.reload();
+      },
+      error: (error: HttpErrorResponse) => {
         alert(error.message);
       }
     })

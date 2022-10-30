@@ -15,7 +15,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   public getUser(): Observable<User> {
-    return this.http.get<User>(`${this.apiServerUrl}/user/id/2`);
+    return this.http.get<User>(`${this.apiServerUrl}/user/id/3`);
   }
 
   public getUsers(): Observable<User[]> {
@@ -24,22 +24,5 @@ export class UserService {
 
   public updateUser(user: User):Observable<User> {
     return this.http.put<User>(`${this.apiServerUrl}/user/update`, user);
-  }
-
-  //PROJECTS
-  public getProjects(): Observable<User["projects"]> {
-    return this.http.get<User["projects"]>(`${this.apiServerUrl}/user/id/2`);
-  }
-
-  public addProject(project?: User): Observable<User> {
-    return this.http.put<User>(`${this.apiServerUrl}/user/update`, project);
-  }
-
-  public updateProject(project: Project):Observable<Project> {
-    return this.http.put<Project>(`${this.apiServerUrl}/project/update`, project);
-  }
-
-  public deleteProject(idProj: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/project/delete/${idProj}`);
   }
 }

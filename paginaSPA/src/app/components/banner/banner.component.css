@@ -8,16 +8,16 @@
 
 .title-hola {
   position: relative;
-  top: -270px;
-  left: -200px;
+  top: -18rem;
+  left: 0;
   background-color: #252839;
   font-size: 2.5rem;
 }
 
 .title-banner {
   position: relative;
-  top: -250px;
-  left: -13px;
+  top: -12rem;
+  left: -7rem;
   background-color: #252839;
   font-size: 2.5em;
 }
@@ -25,12 +25,13 @@
 @media (min-width: 768px) {
   .title-hola {
     top: -20rem;
-    left: -15rem;
+    left: 2rem;
     font-size: 3em;
   }
 
   .title-banner {
-    top: -18rem;
+    top: -14rem;
+    left: -8rem;
     font-size: 3em;
   }
 }

@@ -1,6 +1,6 @@
 /* SECTION ABOUT ME */
 .about__selfie {
-  background: url("../../../assets/img/selfie.jpeg") no-repeat;
+  background-repeat: no-repeat;
   background-size: cover;
   border-radius: 50%;
   border-top: 10px solid #13b0f5;
