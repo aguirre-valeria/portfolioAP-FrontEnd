@@ -1,0 +1,61 @@
+<!--SECTION EXPERIENCIE AND EDUCATION-->
+<section class="section-experiencie-education container-fluid py-5 px-sm-5 my-5">
+    <div class="text-end pe-2">
+        <button type="button" class="btn btn-success fw-bold m-2"><i class="bi bi-plus-lg"></i></button>
+        <button type="button" class="btn btn-secondary fw-bold m-2"><i class="bi bi-pencil-square"></i></button>
+        <button type="button" class="btn btn-danger fw-bold m-2"><i class="bi bi-trash3-fill"></i></button>
+    </div>
+    <div class="row px-xl-5">
+         <!-- start experience section-->
+        <div class="s-experiencie col-lg-6 pe-xl-5" id="experiencie">
+            <div class="container p-5">
+                <h3 class="fs-1 text-gradient315 fw-bold d-inline">Experiencia</h3>
+            </div>
+            <div class="container">
+                <div class="main-timeline" *ngFor="let experiencie of experiencies;">
+                    <!-- start one experience-->
+                    <div class="timeline">
+                        <div class="icon"></div>
+                        <div class="timeline-content text-white ps-5 ms-4 pt-3">
+                            <h5 class="title fw-bold">{{experiencie.titleExp}}</h5>
+                            <h6 class="date">{{experiencie.startDateExp}}-{{experiencie.endDateExp}}</h6>
+                            <p class="description pt-2 pb-0">
+                                {{experiencie.descriptionExp}}
+                            </p>
+                            <hr>
+                        </div>
+                    </div>
+                    <!-- end one experience-->
+                </div>
+            </div>
+        </div>
+        <!-- end experience section-->
+
+        <!-- start education section-->
+        <div class="s-education col-lg-6 ps-xl-5" id="education">
+            <div class="container p-5">
+                <h3 class="fs-1 text-gradient315 fw-bold d-inline">Educación</h3>
+            </div>
+            <div class="container">
+                <div class="main-timeline" *ngFor="let education of educations;">
+                    <!-- start one education-->
+                    <div class="timeline">
+                        <div class="icon"></div>
+                        <div class="timeline-content text-white ps-5 ms-4 pt-3">
+                            <h5 class="title fw-bold">{{education.titleEdu}}</h5>
+                            <h6 class="date">{{education.startDateEdu}}-{{education.endDateEdu}}</h6>
+                            <p class="description pt-2 pb-0">
+                                {{education.descriptionEdu}}
+                            </p>
+                            <hr>
+                        </div>
+                    </div>
+                    <!-- end one education-->
+                </div>
+            </div>
+        </div>
+        <!-- end education section-->
+
+    </div>
+</section>
+<!--END SECTION EXPERIENCIE AND EDUCATION-->
