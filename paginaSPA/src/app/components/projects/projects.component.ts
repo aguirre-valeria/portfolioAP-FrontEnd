@@ -1,9 +1,10 @@
-import { Project } from './../../models/project.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Project } from 'src/app/models/project.model';
 import { User } from 'src/app/models/user.model';
 import { ProjectService } from 'src/app/services/project.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-projects',
@@ -16,7 +17,8 @@ export class ProjectsComponent implements OnInit {
   public addProjects: Project | any;
   public editProject : Project | undefined;
   public deleteProject : Project | undefined;
-  constructor(private projectService: ProjectService) { }
+  
+  constructor(private projectService: ProjectService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.getUser();
@@ -24,10 +26,10 @@ export class ProjectsComponent implements OnInit {
   }
 
    public getUser(): void {
-    this.projectService.getUser().subscribe( {
+    this.userService.getUser().subscribe( {
       next: (response: User) => {
         this.user = response;
-        console.log(this.user);
+        //console.log(this.user);
       },
       error:(error:HttpErrorResponse) => {
         alert(error.message);
