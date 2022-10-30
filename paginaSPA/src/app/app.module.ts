@@ -11,6 +11,7 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { SkillsComponent } from './components/skills/skills.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { FormsModule } from '@angular/forms';
+import { ExperiencieEducationComponent } from './components/experiencie-education/experiencie-education.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     FooterComponent,
     ProjectsComponent,
     SkillsComponent,
-    BannerComponent
+    BannerComponent,
+    ExperiencieEducationComponent
   ],
   imports: [
     BrowserModule,

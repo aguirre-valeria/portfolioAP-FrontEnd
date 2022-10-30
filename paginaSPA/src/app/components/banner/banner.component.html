@@ -1,16 +1,22 @@
 <!--SECTION BANNER-->
 <section class="section-banner" id="banner">
+  <div class="button-banner text-end pe-4 me-4">
+    <button type="button" class="btn btn-secondary fw-bold m-2"><i class="bi bi-pencil-square"></i></button>
+    <button type="button" class="btn btn-danger fw-bold m-2"><i class="bi bi-trash3-fill"></i></button>
+</div>
   <div>
-    <video class="w-100" loop muted autoplay>
-      <source src="./assets/video/banner.mp4" type="video/mp4" />
-    </video>
+    <img *ngIf="user" class="w-100" src="{{user.urlBanner}}" alt="banner">
+<!--     <video class="w-100" loop muted autoplay>
+      <source *ngIf="user" src="{{user.urlBanner}}" type="video/mp4" />
+    </video> -->
   </div>
   <div class="ms-5 text-center position-absolute text-white">
-    <span class="title-hola d-inline-block fw-bold p-2">Hola &#x1F44B;,</span>
+    <span class="title-hola d-inline-block fw-bold p-2">Hola 👋,</span>
     <h1 class="title-banner d-inline-block fw-bold p-2">
       Soy
-      <span class="text-gradient315 fw-bold">&lt;Full Stack Developer/></span>
+      <span *ngIf="user" class="text-gradient315 fw-bold">&lt;{{user.titleProfession}}/></span>
     </h1>
   </div>
 </section>
 <!--END SECTION BANNER-->
+

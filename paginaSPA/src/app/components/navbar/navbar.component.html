@@ -53,15 +53,15 @@
             >
           </li>
           <li class="nav-item icon-contact">
-            <a class="btn px-2" href="https://github.com/aguirre-valeria"
+            <a class="btn px-2" *ngIf="user" href="{{user.urlGitHub}}"
               ><i class="bi bi-github text-gradient315 display-4"></i
             ></a>
             <a
-              class="btn px-2"
-              href="https://www.linkedin.com/in/aguirre-valeria"
+              class="btn px-2" *ngIf="user"
+              href="{{user.urlLinkedIn}}"
               ><i class="bi bi-linkedin text-gradient315 display-4"></i
             ></a>
-            <a class="btn px-2" href="mailto:valee26z@gmail.com"
+            <a class="btn px-2" *ngIf="user" href="mailto:{{user.email}}"
               ><i class="bi bi-envelope-fill text-gradient315 display-4"></i
             ></a>
           </li>
