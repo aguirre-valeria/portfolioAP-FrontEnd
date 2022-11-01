@@ -10,12 +10,12 @@ import { User } from '../models/user.model';
 })
 
 export class UserService {
-  apiServerUrl = environment.apiURL;
+  apiServerUrl = "https://portfolio-web-ap.herokuapp.com/";
 
   constructor(private http: HttpClient) { }
 
-  public getUser(): Observable<User> {
-    return this.http.get<User>(`${this.apiServerUrl}/user/id/3`);
+  public getUser(idUser? : number): Observable<User> {
+    return this.http.get<User>(`${this.apiServerUrl}/user/id/${idUser}`);
   }
 
   public getUsers(): Observable<User[]> {

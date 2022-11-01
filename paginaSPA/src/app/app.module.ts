@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,10 @@ import { SkillsComponent } from './components/skills/skills.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { FormsModule } from '@angular/forms';
 import { ExperiencieEducationComponent } from './components/experiencie-education/experiencie-education.component';
+import { LoginComponent } from './pages/login/login.component';
+import { HomeComponent } from './pages/home/home.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { authInterceptorProviders } from './services/authentication/auth.interceptor.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,10 @@ import { ExperiencieEducationComponent } from './components/experiencie-educatio
     ProjectsComponent,
     SkillsComponent,
     BannerComponent,
-    ExperiencieEducationComponent
+    ExperiencieEducationComponent,
+    LoginComponent,
+    HomeComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +37,9 @@ import { ExperiencieEducationComponent } from './components/experiencie-educatio
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    authInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

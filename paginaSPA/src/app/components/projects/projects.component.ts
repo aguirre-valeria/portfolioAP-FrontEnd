@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Project } from 'src/app/models/project.model';
 import { User } from 'src/app/models/user.model';
+import { LoginService } from 'src/app/services/authentication/login.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -13,19 +14,37 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProjectsComponent implements OnInit {
   public user? : User | undefined;
-  public projects : User["projects"] = [];
+  public projects : Project | any;
   public addProjects: Project | any;
   public editProject : Project | undefined;
   public deleteProject : Project | undefined;
+  public userId : User["id"] | undefined;
   
-  constructor(private projectService: ProjectService, private userService: UserService) { }
+  constructor(private projectService: ProjectService, private userService: UserService, private loginService:LoginService) { }
+
+  // isloged = () => this.autenticacionService.loggedIn();
 
   ngOnInit(): void {
-    this.getUser();
-    this.getProjectByUser();
+    this.getProject();
+/*     this.getProjectByUser(); */
   }
 
-   public getUser(): void {
+   public getProject(user?: User): void {
+    //console.log(this.user)
+    this.loginService.getCurrentUser().subscribe( {
+      next: (user: any) => {
+        this.user = user;
+        // console.log(this.user)
+        this.projects = this.user?.projects;
+        console.log(this.projects);
+      },
+      error:(error:HttpErrorResponse) => {
+        alert(error.message);
+      }
+    })
+  } 
+
+/*    public getUser(): void {
     this.userService.getUser().subscribe( {
       next: (response: User) => {
         this.user = response;
@@ -35,18 +54,20 @@ export class ProjectsComponent implements OnInit {
         alert(error.message);
       }
     })
-  } 
+  }  */
 
-  public getProjectByUser(): void {
-    this.projectService.getUser().subscribe({
+  /* public getProjectByUser(): void {
+    this.projectService.getUser(this.user?.id).subscribe({
       next: (response: User) => {
+        console.log(response)
         this.projects = Object.values(response.projects);
+        console.log(this.projects)
       },
       error: (error: HttpErrorResponse) => {
         console.log('error');
       },
     });
-  }
+  } */
 
   public openModal(mode: string, project?: Project) : void {
     const container = document.getElementById('main-container');
@@ -57,10 +78,10 @@ export class ProjectsComponent implements OnInit {
     if(mode === 'add') {
       button.setAttribute('data-target', '#addProjectModal');
     } else if(mode === 'edit') {
-      this.editProject = project;
+      this.editProject = this.projects;
       button.setAttribute('data-target', '#editProjectModal');
     } else if(mode === 'delete') {
-      this.deleteProject = project;
+      this.deleteProject = this.projects;
       button.setAttribute('data-target', '#deleteProjectModal');
     }
     container?.appendChild(button);
@@ -71,7 +92,7 @@ export class ProjectsComponent implements OnInit {
     this.user?.projects.push(addForm.value);
     this.projectService.addProject(this.user).subscribe({
       next: (response: User) => {
-        this.getProjectByUser();
+        this.getProject();
         addForm.reset();
       },
       error: (error: HttpErrorResponse) => {
@@ -85,7 +106,7 @@ export class ProjectsComponent implements OnInit {
     this.editProject = project;
     this.projectService.updateProject(project).subscribe({
       next: (response: Project) => {
-        this.getProjectByUser();
+        this.getProject();
       },
       error: (error: HttpErrorResponse) => {
         alert(error.message);
@@ -97,10 +118,10 @@ export class ProjectsComponent implements OnInit {
     this.projectService.deleteProject(idProj).subscribe({
       next: (response: void) => {
         alert("El proyecto ha sido eliminado.");
-        this.getProjectByUser();
+        this.getProject();
       },
       error: (error: HttpErrorResponse) => {
-        this.getProjectByUser();
+        this.getProject();
       },
     });
   }

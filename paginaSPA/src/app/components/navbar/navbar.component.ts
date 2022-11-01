@@ -1,5 +1,7 @@
+import { LoginService } from './../../services/authentication/login.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 
@@ -9,8 +11,29 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  public user : User | undefined;
-  constructor(private userService : UserService) { }
+  isLoggedIn = false;
+  user:any = null;
+
+  constructor(public login : LoginService) {}
+
+  ngOnInit(): void {
+    this.isLoggedIn = this.login.isLoggedIn();
+    this.user = this.login.getUserLogin();
+    this.login.loginStatusSubjec.asObservable().subscribe(
+      data => {
+        this.isLoggedIn = this.login.isLoggedIn();
+        this.user = this.login.getUserLogin();
+      }
+    )
+  }
+
+  public logout(){
+    this.login.logout();
+    window.location.reload();
+  }
+
+/*   public user : User | undefined;
+  constructor(private userService : UserService, private router : Router) { }
 
   ngOnInit(): void {
     this.getUser();
@@ -26,5 +49,9 @@ export class NavbarComponent implements OnInit {
       }
     })
   }
+
+  login() {
+    this.router.navigate(['/login']);
+  } */
 
 }

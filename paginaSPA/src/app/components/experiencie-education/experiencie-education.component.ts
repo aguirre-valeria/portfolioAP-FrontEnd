@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Education } from 'src/app/models/education.model';
 import { Experiencie } from 'src/app/models/experiencie.model';
 import { User } from 'src/app/models/user.model';
+import { LoginService } from 'src/app/services/authentication/login.service';
 import { EducationService } from 'src/app/services/education.service';
 import { ExperiencieService } from 'src/app/services/experiencie.service';
 import { UserService } from 'src/app/services/user.service';
@@ -26,7 +27,12 @@ export class ExperiencieEducationComponent implements OnInit {
   public editEducation : Education | undefined;
   public deleteEducation : Education | undefined;
 
-  constructor(private userService: UserService, private experiencieService: ExperiencieService, private educationService: EducationService) { }
+  constructor(
+    private userService: UserService, 
+    private experiencieService: ExperiencieService, 
+    private educationService: EducationService, 
+    private loginService:LoginService) 
+    { }
 
   ngOnInit(): void {
     this.getUser();
@@ -35,6 +41,19 @@ export class ExperiencieEducationComponent implements OnInit {
   }
 
   public getUser(): void {
+    this.loginService.getCurrentUser().subscribe( {
+      next: (user: any) => {
+        console.log(user);
+        this.user = user;
+        console.log(this.user)
+      },
+      error:(error:HttpErrorResponse) => {
+        alert(error.message);
+      }
+    })
+  }
+
+/*   public getUser(): void {
     this.userService.getUser().subscribe( {
       next: (response: User) => {
         this.user = response;
@@ -44,12 +63,13 @@ export class ExperiencieEducationComponent implements OnInit {
         alert(error.message);
       }
     })
-  } 
+  }  */
 
   public getExperiencie(): void {
     this.userService.getUser().subscribe({
       next: (response: User) => {
         this.experiencies = Object.values(response.experiencies);
+        console.log(this.experiencies)
       },
       error: (error: HttpErrorResponse) => {
         console.log('error');
@@ -61,6 +81,7 @@ export class ExperiencieEducationComponent implements OnInit {
     this.userService.getUser().subscribe({
       next: (response: User) => {
         this.educations = Object.values(response.educations);
+        console.log(this.educations);
       },
       error: (error: HttpErrorResponse) => {
         console.log('error');

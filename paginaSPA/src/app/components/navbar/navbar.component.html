@@ -83,8 +83,37 @@
       </div>
       <!--BOTTONS-->
       <div class="navbar-nav d-flex flex-row align-items-center">
-        <button type="button" class="btn bg-gradient135 fw-bold border-0">
+        <button
+          type="button"
+          class="btn bg-gradient135 fw-bold border-0"
+          data-bs-toggle="modal"
+          data-bs-target="#loginModal"
+          *ngIf = "!isLoggedIn"
+          [routerLink]="'/login'"
+        >
           Ingresar
+        </button>
+        <button
+          type="button"
+          class="btn bg-gradient135 fw-bold border-0"
+          data-bs-toggle="modal"
+          data-bs-target="#loginModal"
+          *ngIf = "!isLoggedIn"
+          [routerLink]="'/signup'"
+          
+        >
+          Registrarse
+        </button>
+        
+        <button
+          type="button"
+          class="btn bg-gradient135 fw-bold border-0"
+          data-bs-toggle="modal"
+          data-bs-target="#loginModal"
+          *ngIf = "isLoggedIn"
+          (click) = "logout()"
+        >
+          Cerrar sesión
         </button>
         <button
           type="button"

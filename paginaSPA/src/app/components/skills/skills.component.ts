@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Skill } from 'src/app/models/skill.model';
 import { User } from 'src/app/models/user.model';
+import { LoginService } from 'src/app/services/authentication/login.service';
 import { SkillService } from 'src/app/services/skill.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -18,14 +19,25 @@ export class SkillsComponent implements OnInit {
   public editSkill: Skill | undefined;
   public deleteSkill: Skill | undefined;
 
-  constructor(private skillService: SkillService, private userService: UserService) { }
+  constructor(private skillService: SkillService, private userService: UserService, private loginService:LoginService) { }
 
   ngOnInit(): void {
-    this.getUser();
+    // this.getUser();
     this.getSkillByUser();
   }
 
   public getUser(): void {
+    this.loginService.getCurrentUser().subscribe( {
+      next: (user: any) => {
+        this.user = user;
+      },
+      error:(error:HttpErrorResponse) => {
+        alert(error.message);
+      }
+    })
+  }
+
+/*   public getUser(): void {
     this.userService.getUser().subscribe({
       next: (response: User) => {
         this.user = response;
@@ -35,7 +47,7 @@ export class SkillsComponent implements OnInit {
         alert(error.message);
       }
     })
-  }
+  } */
 
   public getSkillByUser(): void {
     this.skillService.getUser().subscribe({

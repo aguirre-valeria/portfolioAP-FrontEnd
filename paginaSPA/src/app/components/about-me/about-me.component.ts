@@ -1,7 +1,9 @@
+import { UserloginService } from './../../services/authentication/userlogin.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
+import { LoginService } from 'src/app/services/authentication/login.service';
 
 @Component({
   selector: 'app-about-me',
@@ -11,23 +13,35 @@ import { UserService } from 'src/app/services/user.service';
 export class AboutMeComponent implements OnInit {
   public user : User | undefined;
   public editProfile : User | undefined;
-  constructor(private userService : UserService) { }
+  public userLogin? : User;
+  constructor(private userService : UserService, private loginService:LoginService) { }
 
   ngOnInit(): void {
-    this.getUser();
+    //this.getUser();
     
   }
 
   public getUser(): void {
-    this.userService.getUser().subscribe( {
-      next: (response: User) => {
-        this.user = response;
+    this.loginService.getCurrentUser().subscribe( {
+      next: (user: any) => {
+        this.user = user;
       },
       error:(error:HttpErrorResponse) => {
         alert(error.message);
       }
     })
   }
+
+/*   public getUser(userLogin?: User): void {
+    this.userService.getUser(userLogin?.userLogin).subscribe( {
+      next: (response: User) => {
+        this.user = response;
+      },
+      error:(error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    })
+  } */
 
   public openModal(mode: string, user?: User) : void {
     const container = document.getElementById('main-container');

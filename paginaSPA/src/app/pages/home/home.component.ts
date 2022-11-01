@@ -2,18 +2,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { LoginService } from 'src/app/services/authentication/login.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-banner',
-  templateUrl: './banner.component.html',
-  styleUrls: ['./banner.component.css']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class BannerComponent implements OnInit {
-  public user : User | undefined;
-  public editUser : User | undefined;
-  
-  constructor(private userService : UserService, private loginService:LoginService) { }
+export class HomeComponent implements OnInit {
+  public user?: User | undefined;
+
+  constructor(private loginService:LoginService) { }
 
   ngOnInit(): void {
     this.getUser();

@@ -9,16 +9,16 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class ProjectService {
-  apiServerUrl = environment.apiURL;
+  apiServerUrl = "https://portfolio-web-ap.herokuapp.com/";
 
   constructor(private http: HttpClient) { }
 
-  public getUser(): Observable<User> {
-    return this.http.get<User>(`${this.apiServerUrl}/user/id/3`);
+  public getUser(id?:number): Observable<User> {
+    return this.http.get<User>(`${this.apiServerUrl}/user/id/${id}`);
   }
 
   public addProject(project?: User): Observable<User> {
-    return this.http.put<User>(`${this.apiServerUrl}/user/update`, project);
+    return this.http.put<User>(`${this.apiServerUrl}/users/up`, project);
   }
 
   public updateProject(project: Project): Observable<Project> {
