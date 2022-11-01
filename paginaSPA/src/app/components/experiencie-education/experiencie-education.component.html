@@ -1,0 +1,609 @@
+<!--SECTION EXPERIENCIE AND EDUCATION-->
+<section
+  class="section-experiencie-education container-fluid py-5 px-sm-5 my-5"
+>
+  <div class="row px-xl-5">
+    <!-- start experience section-->
+    <div class="s-experiencie col-lg-6 pe-xl-5" id="experiencie">
+      <div class="container p-5">
+        <div class="mb-5">
+          <button
+            type="button"
+            class="btn btn-success fw-bold m-2"
+            (click)="openModalExp('add')"
+            data-bs-toggle="modal"
+            data-bs-target="#addExperiencieModal"
+          >
+            AGREGAR EXPERIENCIA
+          </button>
+        </div>
+        <h3 class="fs-1 text-gradient315 fw-bold d-inline">Experiencia</h3>
+      </div>
+      <div class="container">
+        <div class="main-timeline" *ngFor="let experiencie of experiencies">
+          <!-- start one experience-->
+          <div class="text-end pe-4 me-4">
+            <button
+              type="button"
+              class="btn btn-secondary fw-bold m-2"
+              (click)="openModalExp('edit', experiencie)"
+              data-bs-toggle="modal"
+              data-bs-target="#editExperiencieModal"
+            >
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger fw-bold m-2"
+              (click)="openModalExp('delete', experiencie)"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteExperiencieModal"
+            >
+              <i class="bi bi-trash3-fill"></i>
+            </button>
+          </div>
+          <div class="timeline">
+            <div class="icon"></div>
+            <div class="timeline-content text-white ps-5 ms-4 pt-3">
+              <h5 class="title fw-bold">{{ experiencie.titleExp }}</h5>
+              <h6 class="date">
+                {{ experiencie.startDateExp }}-{{ experiencie.endDateExp }}
+              </h6>
+              <p class="description pt-2 pb-0">
+                {{ experiencie.descriptionExp }}
+              </p>
+              <hr />
+            </div>
+          </div>
+          <!-- end one experience-->
+        </div>
+      </div>
+    </div>
+    <!-- end experience section-->
+
+    <!-- start education section-->
+    <div class="s-education col-lg-6 ps-xl-5" id="education">
+      <div class="container p-5">
+        <div class="mb-5">
+          <button
+            type="button"
+            class="btn btn-success fw-bold m-2"
+            (click)="openModalEdu('add')"
+            data-bs-toggle="modal"
+            data-bs-target="#addEducationModal"
+          >
+            AGREGAR EDUCACIÓN
+          </button>
+        </div>
+        <h3 class="fs-1 text-gradient315 fw-bold d-inline">Educación</h3>
+      </div>
+      <div class="container">
+        <div class="main-timeline" *ngFor="let education of educations">
+          <!-- start one education-->
+          <div class="text-end pe-4 me-4">
+            <button
+              type="button"
+              class="btn btn-secondary fw-bold m-2"
+              (click)="openModalEdu('edit', education)"
+              data-bs-toggle="modal"
+              data-bs-target="#editEducationModal"
+            >
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger fw-bold m-2"
+              (click)="openModalEdu('delete', education)"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteEducationModal"
+            >
+              <i class="bi bi-trash3-fill"></i>
+            </button>
+          </div>
+          <div class="timeline">
+            <div class="icon"></div>
+            <div class="timeline-content text-white ps-5 ms-4 pt-3">
+              <h5 class="title fw-bold">{{ education.titleEdu }}</h5>
+              <h6 class="date">
+                {{ education.startDateEdu }}-{{ education.endDateEdu }}
+              </h6>
+              <p class="description pt-2 pb-0">
+                {{ education.descriptionEdu }}
+              </p>
+              <hr />
+            </div>
+          </div>
+          <!-- end one education-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end education section-->
+</section>
+<!--END SECTION EXPERIENCIE AND EDUCATION-->
+
+<!--MODAL ADD EXPERIENCIE-->
+<div
+  class="modal fade"
+  id="addExperiencieModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="addExperiencieModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title fs-5" id="addExperiencieModalLabel">
+          Añadir Experiencia
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!--FORM OF MODAL-->
+        <form #addForm="ngForm" (ngSubmit)="onAddExperiencie(addForm)">
+          <div class="form-group">
+            <label for="titleExp">Título</label>
+            <input
+              type="text"
+              ngModel
+              name="titleExp"
+              class="form-control"
+              id="titleExp"
+              placeholder="Título de la experiencia laboral"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="descriptionExp">Descripción</label>
+            <input
+              type="text"
+              ngModel
+              name="descriptionExp"
+              class="form-control"
+              id="descripcionExp"
+              placeholder="Descripción dela experiencia laboral"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="startDateExp">Fecha de inicio</label>
+            <input
+              type="number"
+              ngModel
+              name="startDateExp"
+              class="form-control"
+              id="startDateExp"
+              placeholder="Fecha de inicio"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="endDateExp">Fecha de fin</label>
+            <input
+              type="number"
+              ngModel
+              name="endDateExp"
+              class="form-control"
+              id="sendDateExp"
+              placeholder="Fecha de fin"
+              required
+            />
+          </div>
+        </form>
+        <!--END FORM OF MODAL-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          id="add-experiencie-form"
+          (click)="onAddExperiencie(addForm)"
+          data-bs-dismiss="modal"
+        >
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--END MODAL ADD EXPERIENCIE-->
+
+<!-- MODAL EDIT EXPERIENCIE -->
+<div
+  class="modal fade"
+  id="editExperiencieModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="editExperiencieModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title fs-5" id="updateExperiencieModalLabel">
+          Editar Experiencia {{ editExperiencie?.titleExp }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          #editFormExp="ngForm"
+          (ngSubmit)="onUpdateExperiencie(editFormExp.value)"
+        >
+          <div class="form-group">
+            <input
+              type="number"
+              ngModel="{{ editExperiencie?.idExp }}"
+              name="idExp"
+              class="form-control d-none"
+              id="idExp"
+              placeholder="Identificador"
+            />
+            <label for="titleExp">Título de la experiencia</label>
+            <input
+              type="text"
+              ngModel="{{ editExperiencie?.titleExp }}"
+              name="titleExp"
+              class="form-control"
+              id="titleExp"
+              placeholder="Titulo de la experiencia"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="descriptionExp">Descripción</label>
+            <input
+              type="text"
+              ngModel="{{ editExperiencie?.descriptionExp }}"
+              name="descriptionExp"
+              class="form-control"
+              id="descriptionExp"
+              placeholder="Descripción de la experiencia"
+            />
+          </div>
+          <div class="form-group">
+            <label for="startDateExp">Fecha de inicio</label>
+            <input
+              type="number"
+              ngModel="{{ editExperiencie?.startDateExp }}"
+              name="startDateExp"
+              class="form-control"
+              id="startDateExp"
+              placeholder="Fecha de inicio"
+            />
+          </div>
+          <div class="form-group">
+            <label for="endDateExp">Fecha de fin</label>
+            <input
+              type="number"
+              ngModel="{{ editExperiencie?.endDateExp }}"
+              name="endDateExp"
+              class="form-control"
+              id="sendDateExp"
+              placeholder="Fecha de fin"
+            />
+          </div>
+        </form>
+        <!--END FORM OF MODAL-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          id="edit-experiencie-form"
+          (click)="onUpdateExperiencie(editFormExp.value)"
+          data-bs-dismiss="modal"
+        >
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--END MODAL EDIT EXPERIENCIE-->
+
+<!-- MODAL DELETE EXPERIENCIE -->
+<div
+  class="modal fade"
+  id="deleteExperiencieModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="deleteExperiencieModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title fs-5" id="deleteExperiencieModalLabel">
+          Eliminar experiencia {{ editExperiencie?.titleExp }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>¿Está seguro que desea eliminar esta experiencia?</p>
+        <p>{{ deleteExperiencie?.titleExp }}</p>
+        <!--END FORM OF MODAL-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          No
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          id="edit-experiencie-form"
+          (click)="onDeleteExperiencie(deleteExperiencie!.idExp)"
+          data-bs-dismiss="modal"
+        >
+          Si
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--END MODAL DELETE EXPERIENCIE -->
+
+<!--MODAL ADD EDUCATION-->
+<div
+  class="modal fade"
+  id="addEducationModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="addEducationModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title fs-5" id="addEducationModalLabel">
+          Añadir Educación
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!--FORM OF MODAL-->
+        <form #addFormEdu="ngForm" (ngSubmit)="onAddEducation(addFormEdu)">
+          <div class="form-group">
+            <label for="titleEdu">Título</label>
+            <input
+              type="text"
+              ngModel
+              name="titleEdu"
+              class="form-control"
+              id="titleEdu"
+              placeholder="Título de la educación"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="descriptionEdu">Descripción</label>
+            <input
+              type="text"
+              ngModel
+              name="descriptionEdu"
+              class="form-control"
+              id="descripcionEdu"
+              placeholder="Descripción de la educación"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="startDateEdu">Fecha de inicio</label>
+            <input
+              type="number"
+              ngModel
+              name="startDateEdu"
+              class="form-control"
+              id="startDateEdu"
+              placeholder="Fecha de inicio"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="endDateEdu">Fecha de fin</label>
+            <input
+              type="number"
+              ngModel
+              name="endDateEdu"
+              class="form-control"
+              id="sendDateEdu"
+              placeholder="Fecha de fin"
+              required
+            />
+          </div>
+        </form>
+        <!--END FORM OF MODAL-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          id="add-education-form"
+          (click)="onAddEducation(addFormEdu)"
+          data-bs-dismiss="modal"
+        >
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--END MODAL ADD EDUCATION-->
+
+<!-- MODAL EDIT EDUCATION -->
+<div
+  class="modal fade"
+  id="editEducationModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="editEducationModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title fs-5" id="updateEducationModalLabel">
+          Editar Educación {{ editEducation?.titleEdu }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          #editFormEdu="ngForm"
+          (ngSubmit)="onUpdateEducation(editFormEdu.value)"
+        >
+          <div class="form-group">
+            <input
+              type="number"
+              ngModel="{{ editEducation?.idEdu }}"
+              name="idEdu"
+              class="form-control d-none"
+              id="idEdu"
+              placeholder="Identificador"
+            />
+            <label for="titleEdu">Título de la educación</label>
+            <input
+              type="text"
+              ngModel="{{ editEducation?.titleEdu }}"
+              name="titleEdu"
+              class="form-control"
+              id="titleEdu"
+              placeholder="Titulo de la educación"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="descriptionEdu">Descripción</label>
+            <input
+              type="text"
+              ngModel="{{ editEducation?.descriptionEdu }}"
+              name="descriptionEdu"
+              class="form-control"
+              id="descriptionEdu"
+              placeholder="Descripción de la educación"
+            />
+          </div>
+          <div class="form-group">
+            <label for="startDateEdu">Fecha de inicio</label>
+            <input
+              type="number"
+              ngModel="{{ editEducation?.startDateEdu }}"
+              name="startDateEdu"
+              class="form-control"
+              id="startDateEdu"
+              placeholder="Fecha de inicio"
+            />
+          </div>
+          <div class="form-group">
+            <label for="endDateEdu">Fecha de fin</label>
+            <input
+              type="number"
+              ngModel="{{ editEducation?.endDateEdu }}"
+              name="endDateEdu"
+              class="form-control"
+              id="endDateEdu"
+              placeholder="Fecha de fin"
+            />
+          </div>
+        </form>
+        <!--END FORM OF MODAL-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          id="edit-education-form"
+          (click)="onUpdateEducation(editFormEdu.value)"
+          data-bs-dismiss="modal"
+        >
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--END MODAL EDIT EDUCATION-->
+
+<!-- MODAL DELETE EDUCATION -->
+<div
+  class="modal fade"
+  id="deleteEducationModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="deleteEducationModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title fs-5" id="deleteEducationModalLabel">
+          Eliminar educación {{ editEducation?.titleEdu }}
+        </h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>¿Está seguro que desea eliminar esta educación?</p>
+        <p>{{ deleteEducation?.titleEdu }}</p>
+        <!--END FORM OF MODAL-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          No
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          id="edit-education-form"
+          (click)="onDeleteEducation(deleteEducation!.idEdu)"
+          data-bs-dismiss="modal"
+        >
+          Si
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--END MODAL DELETE EDUCATION -->

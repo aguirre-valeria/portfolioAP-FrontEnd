@@ -1,0 +1,75 @@
+/* SECTION EXPERIENCIE AND EDUCATION */
+.main-timeline {
+    position: relative;
+  }
+  
+  .timeline:before {
+    content: "";
+    width: 3px;
+    height: 80%;
+    background: #c6c6c6;
+    margin: 0;
+    position: absolute;
+    top: 30px;
+    left: 25px;
+    right: 0;
+  }
+  
+  .timeline {
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .icon {
+    width: 3rem;
+    height: 3rem;
+    line-height: 1.5rem;
+    margin: auto 0;
+    position: absolute;
+    top: .5rem;
+  }
+  
+  .icon:before,
+  .icon:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: absolute;
+    transition: all 0.33s ease-out 0s;
+  }
+  
+  .icon:before {
+    background: linear-gradient(135deg, #13b0f5, #e70faa);
+    border: 2px solid #232323;
+    left: -3px;
+  }
+  
+  .icon:after {
+    border: 2px solid #c6c6c6;
+    left: 3px;
+  }
+  
+  .timeline:hover .icon:before {
+    left: 3px;
+  }
+  
+  .timeline:hover .icon:after {
+    left: -3px;
+  }
+  
+  .timeline:hover, .main-timeline:hover {
+    left: 6px;
+  }
+  
+  .timeline:hover, .main-timeline:hover {
+    left: -6px;
+  }
+  
+  .title {
+    font-size: 1.25em;
+  }
+  
+  .date {
+    font-size: .75em;
+  }

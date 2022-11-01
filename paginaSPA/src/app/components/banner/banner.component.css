@@ -1,0 +1,50 @@
+/* SECTION BANNER */
+
+.button-banner {
+  position: absolute;
+  top: 90px;
+  right: 0;
+}
+
+.title-hola {
+  position: relative;
+  top: -18rem;
+  left: 0;
+  background-color: #252839;
+  font-size: 2.5rem;
+}
+
+.title-banner {
+  position: relative;
+  top: -12rem;
+  left: -7rem;
+  background-color: #252839;
+  font-size: 2.5em;
+}
+
+@media (min-width: 768px) {
+  .title-hola {
+    top: -20rem;
+    left: 2rem;
+    font-size: 3em;
+  }
+
+  .title-banner {
+    top: -14rem;
+    left: -8rem;
+    font-size: 3em;
+  }
+}
+
+@media (min-width: 938px) {
+  .title-hola {
+    top: -25rem;
+    left: 3.5rem;
+  }
+
+  .title-banner {
+    top: -18rem;
+    left: -10rem;
+  }
+}
+/* END SECTION BANNER */

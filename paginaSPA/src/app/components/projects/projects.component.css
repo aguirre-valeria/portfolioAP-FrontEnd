@@ -1,0 +1,64 @@
+/* CARD PROJECTS IN 3D */
+.front-face,
+.contents,
+.back-face {
+  position: absolute;
+}
+
+.center {
+  height: 300px;
+  width: 450px;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.front-face,
+.back-face {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+  background-size: cover;
+  background-position: center;
+  transform: translateY(0deg);
+  border-radius: 10px;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.contents {
+  left: 0%;
+  top: 50%;
+  width: 100%;
+  perspective: 1000px;
+  transform: translateY(-50%) translateZ(60px) scale(0.94);
+}
+
+.front-face img {
+  height: 300px;
+  width: 450px;
+  object-fit: cover;
+}
+
+.back-face {
+  transform: rotateY(180deg);
+  background: linear-gradient(45deg, #043348 0%, #032535 100%);
+}
+.back {
+  color: white;
+}
+.back h2 {
+  font-size: 2em;
+  padding-bottom: 5px;
+}
+.back p {
+  font-size: 0.8em;
+}
+.center:hover > .back-face {
+  transform: rotateY(0deg);
+}
+.center:hover > .front-face {
+  transform: rotateY(-180deg);
+}
+/* END CARD PROJECTS IN 3D */

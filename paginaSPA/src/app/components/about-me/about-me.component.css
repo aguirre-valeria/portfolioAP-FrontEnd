@@ -1,0 +1,17 @@
+/* SECTION ABOUT ME */
+.about__selfie {
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  border-top: 10px solid #13b0f5;
+  border-left: 10px solid #13b0f5;
+  border-right: 10px solid #e70faa;
+  border-bottom: 10px solid #e70faa;
+  width: 14rem;
+  height: 14rem;
+  max-width: 100%;
+}
+
+.about__selfie:hover {
+  transform: scale(1.1);
+}

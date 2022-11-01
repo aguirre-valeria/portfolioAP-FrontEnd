@@ -1,0 +1,35 @@
+<!--FOOTER-->
+<footer class="bg-dark text-light text-center p-5">
+  <hr class="p-3" />
+  <h6 class="footer-copy">
+    Diseñado con 🤍 por
+    <a
+      *ngIf="user"
+      href="{{ user.urlGitHub }}"
+      class="text-gradient315 fw-bold"
+      target="_blank"
+      >{{ user.name }} {{ user.surname }}</a
+    >
+  </h6>
+  <p>Diseño realizado para el programa de Argentina Programa.</p>
+  <div>
+    <a *ngIf="user" class="btn px-2" href="{{ user.urlGitHub }}" target="_blank"
+      ><i class="bi bi-github text-gradient315 display-6"></i
+    ></a>
+    <a
+      *ngIf="user"
+      class="btn px-2"
+      href="{{ user.urlLinkedIn }}"
+      target="_blank"
+      ><i class="bi bi-linkedin text-gradient315 display-6"></i
+    ></a>
+    <a
+      *ngIf="user"
+      class="btn px-2"
+      href="mailto:{{ user.email }}"
+      target="_blank"
+      ><i class="bi bi-envelope-fill text-gradient315 display-6"></i
+    ></a>
+  </div>
+</footer>
+<!--END FOOTER-->

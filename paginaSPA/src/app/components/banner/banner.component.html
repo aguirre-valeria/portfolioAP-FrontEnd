@@ -1,0 +1,19 @@
+<!--SECTION BANNER-->
+<section class="section-banner" id="banner">
+  <div>
+    <img *ngIf="user" class="w-100" src="{{ user.urlBanner }}" alt="banner" />
+    <!--     <video class="w-100" loop muted autoplay>
+      <source *ngIf="user" src="{{user.urlBanner}}" type="video/mp4" />
+    </video> -->
+  </div>
+  <div class="ms-5 text-center position-absolute text-white">
+    <span class="title-hola d-inline-block fw-bold p-2">Hola 👋,</span>
+    <h1 class="title-banner d-inline-block fw-bold p-2">
+      Soy
+      <span *ngIf="user" class="text-gradient315 fw-bold"
+        >&lt;{{ user.titleProfession }}/></span
+      >
+    </h1>
+  </div>
+</section>
+<!--END SECTION BANNER-->
