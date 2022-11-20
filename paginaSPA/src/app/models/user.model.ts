@@ -5,8 +5,6 @@ import { Skill } from './skill.model';
 
 export interface User {
     id: number;
-    username: string;
-    password: string;
     name: string;
     surname: string;
     email: String;
@@ -20,5 +18,4 @@ export interface User {
     educations: Array<Education>;
     skills: Array<Skill>;
     projects: Array<Project>;
-    userLogin: number;
 }

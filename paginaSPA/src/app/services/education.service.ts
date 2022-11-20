@@ -9,19 +9,24 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class EducationService {
-  apiServerUrl = "https://portfolio-web-ap.herokuapp.com/";
+  // apiServerUrl = "https://portfolio-web-ap.herokuapp.com/";
+  apiServerUrl = environment.apiLocalUrl;
 
   constructor(private http: HttpClient) { }
 
-  public addEducation(education?: User): Observable<User> {
-    return this.http.put<User>(`${this.apiServerUrl}/user/update`, education);
+  public getUser(id?:number): Observable<User> {
+    return this.http.get<User>(`${this.apiServerUrl}/user/id/${id}`);
   }
 
-  public updateEducation(education: Education): Observable<Education> {
-    return this.http.put<Education>(`${this.apiServerUrl}/education/update`, education);
+  public addEducation(idUser?: number, education?: Education): Observable<Education> {
+    return this.http.post<Education>(`${this.apiServerUrl}/user/${idUser}/educations/add`, education);
   }
 
-  public deleteEducation(idEdu: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/education/delete/${idEdu}`);
+  public updateEducation(idUser?: number, idEdu?: number, education?: Object): Observable<Education> {
+    return this.http.put<Education>(`${this.apiServerUrl}/user/${idUser}/educations/update/${idEdu}`, education);
+  }
+
+  public deleteEducation(idUser?: number, idEdu?: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiServerUrl}/user/${idUser}/educations/delete/${idEdu}`);
   }
 }

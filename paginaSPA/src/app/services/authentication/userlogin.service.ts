@@ -6,7 +6,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserloginService {
-  apiServerUrl = "https://portfolio-web-ap.herokuapp.com/";
+  // apiServerUrl = "https://portfolio-web-ap.herokuapp.com/";
+  apiServerUrl = environment.apiLocalUrl;
 
   constructor(private httpClient: HttpClient) { }
 

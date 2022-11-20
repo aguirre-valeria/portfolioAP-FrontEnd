@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { User } from 'src/app/models/user.model';
 import { NgForm } from '@angular/forms';
 import { LoginService } from 'src/app/services/authentication/login.service';
+import { Login } from 'src/app/models/login.model';
 
 @Component({
   selector: 'app-signup',
@@ -19,8 +20,8 @@ export class SignupComponent implements OnInit {
     password : ''
   }
 
-  public userLogin : User | undefined;
-  public user : User["email"] | User["email"] | any;
+  public userLogin : Login | undefined;
+  public user : Login["email"] | Login["email"] | any;
 
   constructor(private loginService : LoginService, private userService : UserService) { }
 

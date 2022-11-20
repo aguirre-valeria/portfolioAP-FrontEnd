@@ -14,7 +14,9 @@ export class FooterComponent implements OnInit {
   constructor(private userService : UserService,  private loginService:LoginService) { }
 
   ngOnInit(): void {
-    this.getUser();
+    if (this.loginService.isLoggedIn()) {
+      this.getUser();
+    }
   }
 
   public getUser(): void {

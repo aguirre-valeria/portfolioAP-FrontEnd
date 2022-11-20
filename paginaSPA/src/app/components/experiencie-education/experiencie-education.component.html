@@ -146,7 +146,7 @@
       </div>
       <div class="modal-body">
         <!--FORM OF MODAL-->
-        <form #addForm="ngForm" (ngSubmit)="onAddExperiencie(addForm)">
+        <form #addForm="ngForm" (ngSubmit)="addExperiencie(addForm)">
           <div class="form-group">
             <label for="titleExp">Título</label>
             <input
@@ -206,7 +206,7 @@
           type="submit"
           class="btn btn-primary"
           id="add-experiencie-form"
-          (click)="onAddExperiencie(addForm)"
+          (click)="addExperiencie(addForm)"
           data-bs-dismiss="modal"
         >
           Guardar
@@ -242,7 +242,7 @@
       <div class="modal-body">
         <form
           #editFormExp="ngForm"
-          (ngSubmit)="onUpdateExperiencie(editFormExp.value)"
+          (ngSubmit)="updateExperiencie(editFormExp.value)"
         >
           <div class="form-group">
             <input
@@ -308,7 +308,7 @@
           type="submit"
           class="btn btn-primary"
           id="edit-experiencie-form"
-          (click)="onUpdateExperiencie(editFormExp.value)"
+          (click)="updateExperiencie(editFormExp.value)"
           data-bs-dismiss="modal"
         >
           Guardar
@@ -389,7 +389,7 @@
       </div>
       <div class="modal-body">
         <!--FORM OF MODAL-->
-        <form #addFormEdu="ngForm" (ngSubmit)="onAddEducation(addFormEdu)">
+        <form #addFormEdu="ngForm" (ngSubmit)="addEducation(addFormEdu)">
           <div class="form-group">
             <label for="titleEdu">Título</label>
             <input
@@ -449,7 +449,7 @@
           type="submit"
           class="btn btn-primary"
           id="add-education-form"
-          (click)="onAddEducation(addFormEdu)"
+          (click)="addEducation(addFormEdu)"
           data-bs-dismiss="modal"
         >
           Guardar
@@ -485,7 +485,7 @@
       <div class="modal-body">
         <form
           #editFormEdu="ngForm"
-          (ngSubmit)="onUpdateEducation(editFormEdu.value)"
+          (ngSubmit)="updateEducation(editFormEdu.value)"
         >
           <div class="form-group">
             <input
@@ -551,7 +551,7 @@
           type="submit"
           class="btn btn-primary"
           id="edit-education-form"
-          (click)="onUpdateEducation(editFormEdu.value)"
+          (click)="updateEducation(editFormEdu.value)"
           data-bs-dismiss="modal"
         >
           Guardar

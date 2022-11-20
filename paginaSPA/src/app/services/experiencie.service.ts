@@ -9,19 +9,24 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class ExperiencieService {
-  apiServerUrl = "https://portfolio-web-ap.herokuapp.com/";
+  // apiServerUrl = "https://portfolio-web-ap.herokuapp.com/";
+  apiServerUrl = environment.apiLocalUrl;
 
   constructor(private http: HttpClient) { }
 
-  public addExperiencie(experiencie?: User): Observable<User> {
-    return this.http.put<User>(`${this.apiServerUrl}/user/update`, experiencie);
+  public getUser(id?:number): Observable<User> {
+    return this.http.get<User>(`${this.apiServerUrl}/user/id/${id}`);
   }
 
-  public updateExperiencie(experiencie?: Experiencie): Observable<Experiencie> {
-    return this.http.put<Experiencie>(`${this.apiServerUrl}/experiencie/update`, experiencie);
+  public addExperiencie(idUser?: number, experiencie?: Experiencie): Observable<Experiencie> {
+    return this.http.post<Experiencie>(`${this.apiServerUrl}/user/${idUser}/experiencies/add`, experiencie);
   }
 
-  public deleteExperiencie(idExp: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/experiencie/delete/${idExp}`);
+  public updateExperiencie(idUser?: number, idExp?: number, experiencie?: Object): Observable<Experiencie> {
+    return this.http.put<Experiencie>(`${this.apiServerUrl}/user/${idUser}/experiencies/update/${idExp}`, experiencie);
+  }
+
+  public deleteExperiencie(idUser?: number, idExp?: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiServerUrl}/user/${idUser}/experiencies/delete/${idExp}`);
   }
 }

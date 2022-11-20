@@ -16,14 +16,16 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ExperiencieEducationComponent implements OnInit {
   public user? : User | undefined;
-  public experiencies : User["experiencies"] = [];
-  public educations : User["educations"] = [];
+  // public experiencies : User["experiencies"] = [];
+  // public educations : User["educations"] = [];
+  public experiencies : Experiencie | any;
+  public educations : Education | any;
 
   public addExperiencies : Experiencie | any;
   public editExperiencie : Experiencie | undefined;
   public deleteExperiencie : Experiencie | undefined;
 
-  public addEducation : Education | any;
+  public addEducations : Education | any;
   public editEducation : Education | undefined;
   public deleteEducation : Education | undefined;
 
@@ -35,9 +37,14 @@ export class ExperiencieEducationComponent implements OnInit {
     { }
 
   ngOnInit(): void {
-    this.getUser();
-    this.getExperiencie();
-    this.getEducation();
+    if (this.loginService.isLoggedIn()) {
+      // this.getUser();
+      this.getExperiencie();
+      this.getEducation();
+    }
+    // this.getUser();
+    // this.getExperiencie();
+    // this.getEducation();
   }
 
   public getUser(): void {
@@ -65,26 +72,32 @@ export class ExperiencieEducationComponent implements OnInit {
     })
   }  */
 
-  public getExperiencie(): void {
-    this.userService.getUser().subscribe({
-      next: (response: User) => {
-        this.experiencies = Object.values(response.experiencies);
-        console.log(this.experiencies)
+  public getExperiencie(user?: User): void {
+    this.loginService.getCurrentUser().subscribe({
+      next: (user: any) => {
+        this.user = user;
+        this.experiencies = this.user?.experiencies;
+        // this.experiencies = Object.values(response.experiencies);
+        //console.log(this.experiencies)
       },
       error: (error: HttpErrorResponse) => {
-        console.log('error');
+        //console.log('error');
+        alert(error.message);
       },
     });
   }
 
-  public getEducation(): void {
-    this.userService.getUser().subscribe({
-      next: (response: User) => {
-        this.educations = Object.values(response.educations);
-        console.log(this.educations);
+  public getEducation(user?: User): void {
+    this.loginService.getCurrentUser().subscribe({
+      next: (user: any) => {
+        this.user = user;
+        this.educations = this.user?.educations;
+        // this.educations = Object.values(response.educations);
+        // console.log(this.educations);
       },
       error: (error: HttpErrorResponse) => {
-        console.log('error');
+        // console.log('error');
+        alert(error.message);
       },
     });
   }
@@ -127,10 +140,11 @@ export class ExperiencieEducationComponent implements OnInit {
       button.click();
   }
 
-  public onAddExperiencie(addFormExp: NgForm): void {
-    this.user?.experiencies.push(addFormExp.value);
-    this.experiencieService.addExperiencie(this.user).subscribe({
-      next: (response: User) => {
+  public addExperiencie(addFormExp: NgForm): void {
+    let experiencieTemp = addFormExp.value;
+    // this.user?.experiencies.push(addFormExp.value);
+    this.experiencieService.addExperiencie(this.user?.id, experiencieTemp).subscribe({
+      next: (response: Experiencie) => {
         this.getExperiencie();
         addFormExp.reset();
       },
@@ -141,8 +155,11 @@ export class ExperiencieEducationComponent implements OnInit {
     })
   }  
 
-  public onUpdateExperiencie(experiencie: Experiencie): void {
-    this.experiencieService.updateExperiencie(experiencie).subscribe({
+  public updateExperiencie(experiencie: Experiencie): void {
+    let editExperiencie = experiencie;
+    let idEx = editExperiencie.idExp;
+    let {idExp , ...updatedExperiencie} = editExperiencie;
+    this.experiencieService.updateExperiencie(this.user?.id, idEx, updatedExperiencie).subscribe({
       next: (response: Experiencie) => {
         this.getExperiencie();
       },
@@ -153,7 +170,7 @@ export class ExperiencieEducationComponent implements OnInit {
   }
 
   public onDeleteExperiencie(idExp: number): void {
-    this.experiencieService.deleteExperiencie(idExp).subscribe({
+    this.experiencieService.deleteExperiencie(this.user?.id, idExp).subscribe({
       next: (response: void) => {
         alert("La experiencia ha sido eliminada.");
         this.getExperiencie();
@@ -164,10 +181,11 @@ export class ExperiencieEducationComponent implements OnInit {
     });
   }
 
-  public onAddEducation(addFormEdu: NgForm): void {
-    this.user?.educations.push(addFormEdu.value);
-    this.educationService.addEducation(this.user).subscribe({
-      next: (response: User) => {
+  public addEducation(addFormEdu: NgForm): void {
+    let educationTemp = addFormEdu.value;
+    // this.user?.educations.push(addFormEdu.value);
+    this.educationService.addEducation(this.user?.id, educationTemp).subscribe({
+      next: (response: Education) => {
         this.getEducation();
         addFormEdu.reset();
       },
@@ -178,9 +196,12 @@ export class ExperiencieEducationComponent implements OnInit {
     })
   }  
 
-  public onUpdateEducation(education: Education): void {
-    this.editEducation = education;
-    this.educationService.updateEducation(education).subscribe({
+  public updateEducation(education: Education): void {
+    let editEducation = education;
+    let idEd = editEducation.idEdu;
+    //console.log(idP)
+    let {idEdu , ...updatedEducation} = editEducation;
+    this.educationService.updateEducation(this.user?.id, idEd, updatedEducation).subscribe({
       next: (response: Education) => {
         this.getEducation();
       },
@@ -191,7 +212,7 @@ export class ExperiencieEducationComponent implements OnInit {
   }
 
   public onDeleteEducation(idEdu: number): void {
-    this.educationService.deleteEducation(idEdu).subscribe({
+    this.educationService.deleteEducation(this.user?.id, idEdu).subscribe({
       next: (response: void) => {
         alert("La educación ha sido eliminada.");
         this.getEducation();

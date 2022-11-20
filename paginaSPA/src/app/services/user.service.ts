@@ -1,4 +1,3 @@
-import { Project } from 'src/app/models/project.model';
 import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -10,19 +9,20 @@ import { User } from '../models/user.model';
 })
 
 export class UserService {
-  apiServerUrl = "https://portfolio-web-ap.herokuapp.com/";
+  // apiServerUrl = "https://portfolio-web-ap.herokuapp.com/";
+  apiServerUrl = environment.apiLocalUrl;
 
   constructor(private http: HttpClient) { }
 
   public getUser(idUser? : number): Observable<User> {
-    return this.http.get<User>(`${this.apiServerUrl}/user/id/${idUser}`);
+    return this.http.get<User>(`${this.apiServerUrl}/user/${idUser}`);
   }
 
-  public getUsers(): Observable<User[]> {
+/*   public getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiServerUrl}/user/all`);
-  }
+  } */
 
   public updateUser(user: User):Observable<User> {
-    return this.http.put<User>(`${this.apiServerUrl}/user/update`, user);
+    return this.http.put<User>(`${this.apiServerUrl}/user/update/${user.id}`, user);
   }
 }

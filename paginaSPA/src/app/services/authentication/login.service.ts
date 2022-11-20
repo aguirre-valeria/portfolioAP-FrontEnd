@@ -7,7 +7,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class LoginService {
-  apiServerUrl = "https://portfolio-web-ap.herokuapp.com/";
+  // apiServerUrl = "https://portfolio-web-ap.herokuapp.com/";
+  apiServerUrl = environment.apiLocalUrl;
 
   public loginStatusSubjec = new Subject<boolean>();
 

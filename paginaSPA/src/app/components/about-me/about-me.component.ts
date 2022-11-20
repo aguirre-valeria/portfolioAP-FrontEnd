@@ -17,14 +17,18 @@ export class AboutMeComponent implements OnInit {
   constructor(private userService : UserService, private loginService:LoginService) { }
 
   ngOnInit(): void {
-    //this.getUser();
+     if (this.loginService.isLoggedIn()) {
+      this.getUser();
+    }
     
   }
 
-  public getUser(): void {
+  public getUser(user?: User): void {
+
     this.loginService.getCurrentUser().subscribe( {
       next: (user: any) => {
         this.user = user;
+        console.log(this.user)
       },
       error:(error:HttpErrorResponse) => {
         alert(error.message);
@@ -51,6 +55,7 @@ export class AboutMeComponent implements OnInit {
     button.setAttribute('data-toggle', 'modal');
     if(mode === 'edit') {
       this.editProfile = user;
+      console.log(this.editProfile)
       button.setAttribute('data-target', '#editProfileModal');
     }
     container?.appendChild(button);

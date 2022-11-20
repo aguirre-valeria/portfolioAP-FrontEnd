@@ -9,7 +9,8 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class ProjectService {
-  apiServerUrl = "https://portfolio-web-ap.herokuapp.com/";
+  // apiServerUrl = "https://portfolio-web-ap.herokuapp.com/";
+  apiServerUrl = environment.apiLocalUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -17,15 +18,15 @@ export class ProjectService {
     return this.http.get<User>(`${this.apiServerUrl}/user/id/${id}`);
   }
 
-  public addProject(project?: User): Observable<User> {
-    return this.http.put<User>(`${this.apiServerUrl}/users/up`, project);
+  public addProject(idUser?: number, project?: Project): Observable<Project> {
+    return this.http.post<Project>(`${this.apiServerUrl}/user/${idUser}/projects/add`, project);
   }
 
-  public updateProject(project: Project): Observable<Project> {
-    return this.http.put<Project>(`${this.apiServerUrl}/project/update`, project);
+  public updateProject(idUser?: number, idProj?: number, project?: Object): Observable<Project> {
+    return this.http.put<Project>(`${this.apiServerUrl}/user/${idUser}/projects/update/${idProj}`, project);
   }
 
-  public deleteProject(idProj: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/project/delete/${idProj}`);
+  public deleteProject(idUser?: number, idProj?: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiServerUrl}/user/${idUser}/projects/delete/${idProj}`);
   }
 }

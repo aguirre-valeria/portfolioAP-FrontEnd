@@ -18,14 +18,17 @@ export class ProjectsComponent implements OnInit {
   public addProjects: Project | any;
   public editProject : Project | undefined;
   public deleteProject : Project | undefined;
-  public userId : User["id"] | undefined;
+  // public userId : User["id"] | undefined;<
   
   constructor(private projectService: ProjectService, private userService: UserService, private loginService:LoginService) { }
 
   // isloged = () => this.autenticacionService.loggedIn();
 
   ngOnInit(): void {
-    this.getProject();
+    if (this.loginService.isLoggedIn()) {
+      this.getProject();
+    }
+    // this.getProject();
 /*     this.getProjectByUser(); */
   }
 
@@ -36,7 +39,7 @@ export class ProjectsComponent implements OnInit {
         this.user = user;
         // console.log(this.user)
         this.projects = this.user?.projects;
-        console.log(this.projects);
+        // console.log(this.projects);
       },
       error:(error:HttpErrorResponse) => {
         alert(error.message);
@@ -78,17 +81,20 @@ export class ProjectsComponent implements OnInit {
     if(mode === 'add') {
       button.setAttribute('data-target', '#addProjectModal');
     } else if(mode === 'edit') {
-      this.editProject = this.projects;
+      // this.editProject = this.projects;
+      this.editProject = project;
+      // console.log(this.editProject)
       button.setAttribute('data-target', '#editProjectModal');
     } else if(mode === 'delete') {
-      this.deleteProject = this.projects;
+      this.deleteProject = project;
+      // this.deleteProject = this.projects;
       button.setAttribute('data-target', '#deleteProjectModal');
     }
     container?.appendChild(button);
     button.click();
   }
 
-  public addProject(addForm: NgForm): void {
+/*   public addProject(addForm: NgForm): void {
     this.user?.projects.push(addForm.value);
     this.projectService.addProject(this.user).subscribe({
       next: (response: User) => {
@@ -100,9 +106,25 @@ export class ProjectsComponent implements OnInit {
         addForm.reset();
       }
     })
-  }  
+  }  */ 
 
-  public updateProject(project: Project): void {
+  public addProject(addForm: NgForm): void {
+    let projectTemp = addForm.value;
+    // console.log(projectTemp)
+    // console.log(this.user?.id)
+    this.projectService.addProject(this.user?.id, projectTemp).subscribe({
+      next: (response: Project) => {
+        this.getProject();
+        addForm.reset();
+      },
+      error: (error: HttpErrorResponse) => {
+        alert(error.message);
+        addForm.reset();
+      }
+    })
+  }
+
+/*   public updateProject(project: Project): void {
     this.editProject = project;
     this.projectService.updateProject(project).subscribe({
       next: (response: Project) => {
@@ -112,10 +134,29 @@ export class ProjectsComponent implements OnInit {
         alert(error.message);
       }
     })
+  } */
+
+  public updateProject(project: Project): void {
+    let editProject = project;
+    //console.log(editProject)
+    let idP = editProject.idProj;
+    //console.log(idP)
+    let {idProj , ...updatedProject} = editProject;
+    //console.log(updatedProject)
+
+    this.projectService.updateProject(this.user?.id, idP, updatedProject).subscribe({
+      next: (response: Project) => {
+        // console.log(response)
+        this.getProject();
+      },
+      error: (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    })
   }
 
   public onDeleteProject(idProj: number): void {
-    this.projectService.deleteProject(idProj).subscribe({
+    this.projectService.deleteProject(this.user?.id, idProj).subscribe({
       next: (response: void) => {
         alert("El proyecto ha sido eliminado.");
         this.getProject();

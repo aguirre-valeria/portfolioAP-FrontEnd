@@ -5,6 +5,7 @@ import { LoginService } from 'src/app/services/authentication/login.service';
 import Swal from 'sweetalert2';
 import { User } from 'src/app/models/user.model';
 import { UserloginService } from 'src/app/services/authentication/userlogin.service';
+import { Login } from 'src/app/models/login.model';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
     password : '',
   }
 
-  public loginData : User | undefined;
+  public loginData : Login | undefined;
 
   constructor(private loginService:LoginService, private userloginService : UserloginService, private router:Router) { }
 

@@ -14,7 +14,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class SkillsComponent implements OnInit {
   public user?: User | undefined;
-  public skills: User["skills"] = [];
+  // public skills: User["skills"] = [];
+  public skills : Skill | any;
   public addSkills: Skill | any;
   public editSkill: Skill | undefined;
   public deleteSkill: Skill | undefined;
@@ -22,8 +23,11 @@ export class SkillsComponent implements OnInit {
   constructor(private skillService: SkillService, private userService: UserService, private loginService:LoginService) { }
 
   ngOnInit(): void {
+    if (this.loginService.isLoggedIn()) {
+      this.getSkill();
+    }
     // this.getUser();
-    this.getSkillByUser();
+    // this.getSkillByUser();
   }
 
   public getUser(): void {
@@ -49,10 +53,12 @@ export class SkillsComponent implements OnInit {
     })
   } */
 
-  public getSkillByUser(): void {
-    this.skillService.getUser().subscribe({
-      next: (response: User) => {
-        this.skills = Object.values(response.skills);
+  public getSkill(user?: User): void {
+    this.loginService.getCurrentUser().subscribe({
+      next: (user: any) => {
+        this.user = user;
+        this.skills = this.user?.skills;
+        // this.skills = Object.values(response.skills);
       },
       error: (error: HttpErrorResponse) => {
         console.log('error');
@@ -81,10 +87,12 @@ export class SkillsComponent implements OnInit {
   }
 
   public addSkill(addForm: NgForm): void {
-    this.user?.skills.push(addForm.value);
-    this.skillService.addSkill(this.user).subscribe({
-      next: (response: User) => {
-        this.getSkillByUser();
+    let skillTemp = addForm.value;
+    // console.log(skillTemp)
+    // this.user?.skills.push(addForm.value);
+    this.skillService.addSkill(this.user?.id, skillTemp).subscribe({
+      next: (response: Skill) => {
+        this.getSkill();
         addForm.reset();
       },
       error: (error: HttpErrorResponse) => {
@@ -95,11 +103,15 @@ export class SkillsComponent implements OnInit {
   }
 
   public updateSkill(skill: Skill): void {
-    this.editSkill = skill;
+    let editSkill = skill;
     // console.log(this.editSkill);
-    this.skillService.updateSkill(skill).subscribe({
+    let idS = editSkill.idSkill;
+    //console.log(idS)
+    let {idSkill , ...updatedSkill} = editSkill;
+    //console.log(updatedSkill)
+    this.skillService.updateSkill(this.user?.id, idS, updatedSkill).subscribe({
       next: (response: Skill) => {
-        this.getSkillByUser();
+        this.getSkill();
       },
       error: (error: HttpErrorResponse) => {
         alert(error.message);
@@ -108,13 +120,13 @@ export class SkillsComponent implements OnInit {
   }
 
   public onDeleteSkill(idSkill: number): void {
-    this.skillService.deleteSkill(idSkill).subscribe({
+    this.skillService.deleteSkill(this.user?.id, idSkill).subscribe({
       next: (response: void) => {
         alert("La habilidad ha sido eliminada.");
-        this.getSkillByUser();
+        this.getSkill();
       },
       error: (error: HttpErrorResponse) => {
-        this.getSkillByUser();
+        this.getSkill();
       },
     });
   }
