@@ -1,6 +1,6 @@
 <!--SECTION PROJECTS-->
 <section class="section-projects container-fluid py-5 my-5" id="projects">
-  <div class="text-end pe-4 me-4">
+  <div *ngIf="loggedIn" class="text-end pe-4 me-4">
     <button
       type="button"
       class="btn btn-success fw-bold m-2"
@@ -21,7 +21,7 @@
   >
     <div class="col-lg-4 center my-sm-2 px-0 m-sm-2">
       <div class="text-end pe-4 me-4">
-        <button
+        <button *ngIf="loggedIn"
           type="button"
           class="btn btn-secondary fw-bold m-2"
           (click)="openModal('edit', project)"
@@ -30,7 +30,7 @@
         >
           <i class="bi bi-pencil-square"></i>
         </button>
-        <button
+        <button *ngIf="loggedIn"
           type="button"
           class="btn btn-danger fw-bold m-2"
           (click)="openModal('delete', project)"

@@ -70,6 +70,7 @@ export class LoginService {
     }
 
     public addUserlogin(user:any){
+      console.log(user)
       return this.http.post(`${this.apiServerUrl}/users/`,user);
     }
 

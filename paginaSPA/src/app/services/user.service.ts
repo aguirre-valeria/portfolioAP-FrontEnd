@@ -14,8 +14,20 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  public getUser(idUser? : number): Observable<User> {
-    return this.http.get<User>(`${this.apiServerUrl}/user/${idUser}`);
+  public getUserById(idUser? : number): Observable<User> {
+    return this.http.get<User>(`${this.apiServerUrl}/user/id/${idUser}`);
+  }
+
+  public getUserAdmin(): Observable<User> {
+    return this.http.get<User>(`${this.apiServerUrl}/user/id/15`);
+  }
+
+/*   public getUserByUsername(): Observable<User> {
+    return this.http.get<User>(`${this.apiServerUrl}/users/get/muela12`);
+  } */
+
+  public getUserByUserName(username? : String): Observable<User> {
+    return this.http.get<User>(`${this.apiServerUrl}/user/${username}`);
   }
 
 /*   public getUsers(): Observable<User[]> {

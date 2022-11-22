@@ -6,7 +6,7 @@
     <!-- start experience section-->
     <div class="s-experiencie col-lg-6 pe-xl-5" id="experiencie">
       <div class="container p-5">
-        <div class="mb-5">
+        <div *ngIf="loggedIn" class="mb-5">
           <button
             type="button"
             class="btn btn-success fw-bold m-2"
@@ -23,7 +23,7 @@
         <div class="main-timeline" *ngFor="let experiencie of experiencies">
           <!-- start one experience-->
           <div class="text-end pe-4 me-4">
-            <button
+            <button *ngIf="loggedIn"
               type="button"
               class="btn btn-secondary fw-bold m-2"
               (click)="openModalExp('edit', experiencie)"
@@ -32,7 +32,7 @@
             >
               <i class="bi bi-pencil-square"></i>
             </button>
-            <button
+            <button *ngIf="loggedIn"
               type="button"
               class="btn btn-danger fw-bold m-2"
               (click)="openModalExp('delete', experiencie)"
@@ -64,7 +64,7 @@
     <!-- start education section-->
     <div class="s-education col-lg-6 ps-xl-5" id="education">
       <div class="container p-5">
-        <div class="mb-5">
+        <div *ngIf="loggedIn" class="mb-5">
           <button
             type="button"
             class="btn btn-success fw-bold m-2"
@@ -81,7 +81,7 @@
         <div class="main-timeline" *ngFor="let education of educations">
           <!-- start one education-->
           <div class="text-end pe-4 me-4">
-            <button
+            <button *ngIf="loggedIn"
               type="button"
               class="btn btn-secondary fw-bold m-2"
               (click)="openModalEdu('edit', education)"
@@ -90,7 +90,7 @@
             >
               <i class="bi bi-pencil-square"></i>
             </button>
-            <button
+            <button *ngIf="loggedIn"
               type="button"
               class="btn btn-danger fw-bold m-2"
               (click)="openModalEdu('delete', education)"

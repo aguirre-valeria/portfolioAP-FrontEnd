@@ -19,18 +19,35 @@ export class SkillsComponent implements OnInit {
   public addSkills: Skill | any;
   public editSkill: Skill | undefined;
   public deleteSkill: Skill | undefined;
+  loggedIn = false;
 
   constructor(private skillService: SkillService, private userService: UserService, private loginService:LoginService) { }
 
   ngOnInit(): void {
     if (this.loginService.isLoggedIn()) {
       this.getSkill();
+      this.loggedIn = true;
+    } else {
+      this.getUserHome();
+      this.loggedIn = false;
     }
     // this.getUser();
     // this.getSkillByUser();
   }
 
-  public getUser(): void {
+  public getUserHome(): void {
+    this.userService.getUserAdmin().subscribe( {
+      next: (user: any) => {
+        this.user = user;
+        this.skills = this.user?.skills;
+      },
+      error:(error:HttpErrorResponse) => {
+        alert(error.message);
+      }
+    })
+  }
+
+/*   public getUser(): void {
     this.loginService.getCurrentUser().subscribe( {
       next: (user: any) => {
         this.user = user;
@@ -39,7 +56,7 @@ export class SkillsComponent implements OnInit {
         alert(error.message);
       }
     })
-  }
+  } */
 
 /*   public getUser(): void {
     this.userService.getUser().subscribe({

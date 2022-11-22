@@ -3,8 +3,8 @@
   class="section-about-me text-white text-center container my-5 py-4"
   id="about-me"
 >
-  <div class="text-end pe-4 me-4">
-    <button
+  <div  class="text-end pe-4 me-4">
+    <button *ngIf="loggedIn"
       type="button"
       class="btn btn-success fw-bold m-2"
       data-bs-toggle="modal"

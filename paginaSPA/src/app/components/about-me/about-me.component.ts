@@ -14,21 +14,35 @@ export class AboutMeComponent implements OnInit {
   public user : User | undefined;
   public editProfile : User | undefined;
   public userLogin? : User;
+  loggedIn = false;
+  
   constructor(private userService : UserService, private loginService:LoginService) { }
 
   ngOnInit(): void {
      if (this.loginService.isLoggedIn()) {
-      this.getUser();
+      this.getUserLogin();
+      this.loggedIn = true;
+    } else {
+      this.getUserHome();
     }
-    
   }
 
-  public getUser(user?: User): void {
-
+  public getUserLogin(user?: User): void {
     this.loginService.getCurrentUser().subscribe( {
       next: (user: any) => {
         this.user = user;
         console.log(this.user)
+      },
+      error:(error:HttpErrorResponse) => {
+        alert(error.message);
+      }
+    })
+  }
+
+  public getUserHome(): void {
+    this.userService.getUserById(15).subscribe( {
+      next: (user: any) => {
+        this.user = user;
       },
       error:(error:HttpErrorResponse) => {
         alert(error.message);
@@ -66,7 +80,7 @@ export class AboutMeComponent implements OnInit {
     this.editProfile = user;
     this.userService.updateUser(user).subscribe({
       next: (response: User) => {
-        this.getUser();
+        this.getUserLogin();
         location.reload();
       },
       error: (error: HttpErrorResponse) => {

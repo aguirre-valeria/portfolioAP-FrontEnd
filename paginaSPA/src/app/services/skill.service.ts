@@ -14,9 +14,9 @@ export class SkillService {
 
   constructor(private http: HttpClient) { }
 
-  public getUser(idUser? : number): Observable<User> {
+/*   public getUser(idUser? : number): Observable<User> {
     return this.http.get<User>(`${this.apiServerUrl}/user/id/${idUser}`);
-  }
+  } */
 
   public addSkill(idUser?: number, skill?: Skill): Observable<Skill> {
     return this.http.post<Skill>(`${this.apiServerUrl}/user/${idUser}/skills/add`, skill);

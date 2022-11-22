@@ -12,17 +12,32 @@ import { UserService } from 'src/app/services/user.service';
 export class BannerComponent implements OnInit {
   public user : User | undefined;
   public editUser : User | undefined;
+  loggedIn = false;
   
   constructor(private userService : UserService, private loginService:LoginService) { }
 
   ngOnInit(): void {
     if (this.loginService.isLoggedIn()) {
-      this.getUser();
+      this.getUserLogin();
+      this.loggedIn = true;
+    } else {
+      this.getUserHome();
     }
   }
 
-  public getUser(): void {
+  public getUserLogin(): void {
     this.loginService.getCurrentUser().subscribe( {
+      next: (user: any) => {
+        this.user = user;
+      },
+      error:(error:HttpErrorResponse) => {
+        alert(error.message);
+      }
+    })
+  }
+
+  public getUserHome(): void {
+    this.userService.getUserAdmin().subscribe( {
       next: (user: any) => {
         this.user = user;
       },

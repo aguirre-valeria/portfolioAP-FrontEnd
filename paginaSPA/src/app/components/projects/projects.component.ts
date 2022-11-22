@@ -19,6 +19,8 @@ export class ProjectsComponent implements OnInit {
   public editProject : Project | undefined;
   public deleteProject : Project | undefined;
   // public userId : User["id"] | undefined;<
+
+  loggedIn = false;
   
   constructor(private projectService: ProjectService, private userService: UserService, private loginService:LoginService) { }
 
@@ -27,9 +29,25 @@ export class ProjectsComponent implements OnInit {
   ngOnInit(): void {
     if (this.loginService.isLoggedIn()) {
       this.getProject();
+      this.loggedIn = true;
+    } else {
+      this.getUserHome();
+      this.loggedIn = false;
     }
     // this.getProject();
 /*     this.getProjectByUser(); */
+  }
+
+  public getUserHome(): void {
+    this.userService.getUserAdmin().subscribe( {
+      next: (user: any) => {
+        this.user = user;
+        this.projects = this.user?.projects;
+      },
+      error:(error:HttpErrorResponse) => {
+        alert(error.message);
+      }
+    })
   }
 
    public getProject(user?: User): void {

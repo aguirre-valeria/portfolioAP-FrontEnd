@@ -29,6 +29,8 @@ export class ExperiencieEducationComponent implements OnInit {
   public editEducation : Education | undefined;
   public deleteEducation : Education | undefined;
 
+  loggedIn = false;
+
   constructor(
     private userService: UserService, 
     private experiencieService: ExperiencieService, 
@@ -37,40 +39,28 @@ export class ExperiencieEducationComponent implements OnInit {
     { }
 
   ngOnInit(): void {
-    if (this.loginService.isLoggedIn()) {
-      // this.getUser();
+    if (this.loginService.isLoggedIn() ) {
       this.getExperiencie();
       this.getEducation();
+      this.loggedIn = true;
+    } else {
+      this.getUserHome();
+      this.loggedIn = false;
     }
-    // this.getUser();
-    // this.getExperiencie();
-    // this.getEducation();
   }
 
-  public getUser(): void {
-    this.loginService.getCurrentUser().subscribe( {
+  public getUserHome(): void {
+    this.userService.getUserAdmin().subscribe( {
       next: (user: any) => {
-        console.log(user);
         this.user = user;
-        console.log(this.user)
+        this.experiencies = this.user?.experiencies;
+        this.educations = this.user?.educations;
       },
       error:(error:HttpErrorResponse) => {
         alert(error.message);
       }
     })
   }
-
-/*   public getUser(): void {
-    this.userService.getUser().subscribe( {
-      next: (response: User) => {
-        this.user = response;
-        //console.log(this.user);
-      },
-      error:(error:HttpErrorResponse) => {
-        alert(error.message);
-      }
-    })
-  }  */
 
   public getExperiencie(user?: User): void {
     this.loginService.getCurrentUser().subscribe({
