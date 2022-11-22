@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { LoginService } from 'src/app/services/authentication/login.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-about-me',
@@ -15,15 +16,27 @@ export class AboutMeComponent implements OnInit {
   public editProfile : User | undefined;
   public userLogin? : User;
   loggedIn = false;
+
+  public username?: string | undefined | null;
   
-  constructor(private userService : UserService, private loginService:LoginService) { }
+  constructor(private userService : UserService, private loginService:LoginService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
      if (this.loginService.isLoggedIn()) {
       this.getUserLogin();
       this.loggedIn = true;
     } else {
-      this.getUserHome();
+      this.route.paramMap.subscribe((params: ParamMap) => {
+        this.username = params.get('username');
+      });
+      if(this.username === null) {
+         console.log(this.username)
+        this.getUserHome();
+      } else {
+        this.getUserByUsername(this.username);
+         console.log(this.username)
+      }
+      
     }
   }
 
@@ -49,6 +62,19 @@ export class AboutMeComponent implements OnInit {
       }
     })
   }
+
+  public getUserByUsername(username : string | null | undefined): void {
+    /*     let userN = username;
+        console.log(this.username); */
+        this.userService.getUserByUserName(username).subscribe( {
+          next: (user: any) => {
+            this.user = user;
+          },
+          error:(error:HttpErrorResponse) => {
+            alert(error.message);
+          }
+        })
+      }
 
 /*   public getUser(userLogin?: User): void {
     this.userService.getUser(userLogin?.userLogin).subscribe( {

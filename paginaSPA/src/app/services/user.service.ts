@@ -26,7 +26,7 @@ export class UserService {
     return this.http.get<User>(`${this.apiServerUrl}/users/get/muela12`);
   } */
 
-  public getUserByUserName(username? : String): Observable<User> {
+  public getUserByUserName(username? : string | null | undefined): Observable<User> {
     return this.http.get<User>(`${this.apiServerUrl}/user/${username}`);
   }
 

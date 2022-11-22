@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Education } from 'src/app/models/education.model';
 import { Experiencie } from 'src/app/models/experiencie.model';
 import { User } from 'src/app/models/user.model';
@@ -29,13 +30,16 @@ export class ExperiencieEducationComponent implements OnInit {
   public editEducation : Education | undefined;
   public deleteEducation : Education | undefined;
 
+  public username?: string | undefined | null;
+
   loggedIn = false;
 
   constructor(
     private userService: UserService, 
     private experiencieService: ExperiencieService, 
     private educationService: EducationService, 
-    private loginService:LoginService) 
+    private loginService:LoginService,
+    private route: ActivatedRoute) 
     { }
 
   ngOnInit(): void {
@@ -44,8 +48,19 @@ export class ExperiencieEducationComponent implements OnInit {
       this.getEducation();
       this.loggedIn = true;
     } else {
-      this.getUserHome();
-      this.loggedIn = false;
+      this.route.paramMap.subscribe((params: ParamMap) => {
+        this.username = params.get('username');
+      });
+      if(this.username === null) {
+        // console.log(this.username)
+        this.getUserHome();
+        this.loggedIn = false;
+      } else {
+        this.getUserByUsername(this.username);
+        this.loggedIn = false;
+        // console.log(this.username)
+      }
+      
     }
   }
 
@@ -61,6 +76,21 @@ export class ExperiencieEducationComponent implements OnInit {
       }
     })
   }
+
+  public getUserByUsername(username : string | null | undefined): void {
+    /*     let userN = username;
+        console.log(this.username); */
+        this.userService.getUserByUserName(username).subscribe( {
+          next: (user: any) => {
+            this.user = user;
+            this.experiencies = this.user?.experiencies;
+            this.educations = this.user?.educations;
+          },
+          error:(error:HttpErrorResponse) => {
+            alert(error.message);
+          }
+        })
+      }
 
   public getExperiencie(user?: User): void {
     this.loginService.getCurrentUser().subscribe({

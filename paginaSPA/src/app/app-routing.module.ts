@@ -11,6 +11,11 @@ const routes: Routes = [
     pathMatch : 'full'
   },
   {
+    path : 'home',
+    component : HomeComponent,
+    pathMatch : 'full'
+  },
+  {
     path : 'login',
     component : LoginComponent,
     pathMatch : 'full'
@@ -19,7 +24,12 @@ const routes: Routes = [
     path : 'signup',
     component : SignupComponent,
     pathMatch : 'full'
-  }
+  },
+  {
+    path : ':username',
+    component : HomeComponent,
+    pathMatch : 'full'
+  },
 ];
 
 @NgModule({
