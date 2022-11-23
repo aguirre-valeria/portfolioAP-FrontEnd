@@ -41,22 +41,27 @@ export class SignupComponent implements OnInit {
         timer: 1200
       })
       return;
-    } else if(this.userLogin.email == '' || this.userLogin.email == null){
+    } else if(this.userLogin.email == '' || this.userLogin.email == null || !(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(this.userlogin.email))){
       Swal.fire({
         position: 'center',
         icon: 'warning',
-        title: 'El email es requerido',
+        title: 'El email es requerido y debe de ser un email válido',
         showConfirmButton: false,
         timer: 1200
       })
       return;
-    } else if(this.userLogin.password == '' || this.userLogin.password == null){
-      Swal.fire({
+    } else if(this.userLogin.password == '' || this.userLogin.password == null || !(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{8,}$/.test(this.userLogin.password)) ){
+/*       Swal.fire({
         position: 'center',
         icon: 'warning',
         title: 'La contraseña es requerida',
         showConfirmButton: false,
         timer: 1200
+      }) */
+      Swal.fire({
+        icon: 'info',
+        title: 'Ingresa una contraseña que:',
+        html: '<li>Tenga al menos una letra minúscula</li><li>Tenga al menos un número</li><li>Tenga al menos una letra mayúscula</li><li>Tenga un mínimo de 8 caracteres</li>',
       })
       return;
     }

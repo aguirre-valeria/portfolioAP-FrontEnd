@@ -26,18 +26,37 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+ // || !(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{8,}$/.test(this.logindata.password))
   formSubmit(addForm: NgForm){
     this.loginData = addForm.value;
-    console.log(this.loginData);
+    if(this.logindata.username.trim() == '' || this.logindata.username.trim() == null){
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'El nombre de usuario es requerido',
+        showConfirmButton: false,
+        timer: 1200
+      })
+      return;
+    } else if (this.logindata.password.trim() == '' || this.logindata.password.trim() == null){
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'La contraseña es requerida',
+          showConfirmButton: false,
+          timer: 1200
+        })
+        return;
+      }
+    //console.log(this.loginData);
     this.loginService.generateToken(this.loginData).subscribe(
       (data:any) => {
-        console.log(data);
-        console.log(this.loginService);
+        // console.log(data);
+        //console.log(this.loginService);
         this.loginService.loginUserLogin(data.token);
         this.loginService.getCurrentUser().subscribe((user:any) => {
           this.loginService.setUser(user);
-          console.log(user);
+          // console.log(user);
 
           if(this.loginService.getUserRole() == 'ADMIN'){
             //dashboard admin
@@ -57,7 +76,11 @@ export class LoginComponent implements OnInit {
         })
       },(error) => {
         console.log(error);
-        alert('Detalles inválidos , vuelva a intentar !!')
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: '¡Datos inválidos, vuelva a intentar!'
+        })
       }
     )
   }

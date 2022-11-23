@@ -30,11 +30,11 @@ export class AboutMeComponent implements OnInit {
         this.username = params.get('username');
       });
       if(this.username === null) {
-         console.log(this.username)
+         // console.log(this.username)
         this.getUserHome();
       } else {
         this.getUserByUsername(this.username);
-         console.log(this.username)
+         // console.log(this.username)
       }
       
     }
@@ -44,7 +44,7 @@ export class AboutMeComponent implements OnInit {
     this.loginService.getCurrentUser().subscribe( {
       next: (user: any) => {
         this.user = user;
-        console.log(this.user)
+        // console.log(this.user)
       },
       error:(error:HttpErrorResponse) => {
         alert(error.message);
