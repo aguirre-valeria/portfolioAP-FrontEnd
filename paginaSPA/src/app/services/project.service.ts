@@ -13,10 +13,6 @@ export class ProjectService {
   apiServerUrl = environment.apiLocalUrl;
 
   constructor(private http: HttpClient) { }
-/* 
-  public getUser(id?:number): Observable<User> {
-    return this.http.get<User>(`${this.apiServerUrl}/user/id/${id}`);
-  } */
 
   public addProject(idUser?: number, project?: Project): Observable<Project> {
     return this.http.post<Project>(`${this.apiServerUrl}/user/${idUser}/projects/add`, project);

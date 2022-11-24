@@ -1,9 +1,7 @@
 import { UserService } from 'src/app/services/user.service';
-import { UserloginService } from './../../services/authentication/userlogin.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
-import { User } from 'src/app/models/user.model';
 import { NgForm } from '@angular/forms';
 import { LoginService } from 'src/app/services/authentication/login.service';
 import { Login } from 'src/app/models/login.model';
@@ -15,24 +13,26 @@ import { Login } from 'src/app/models/login.model';
 })
 export class SignupComponent implements OnInit {
   public userlogin = {
-    username : '',
-    email : '',
-    password : ''
+    username: '',
+    email: '',
+    password: ''
   }
 
-  public userLogin : Login | undefined;
-  public user : Login["email"] | Login["email"] | any;
+  public userLogin: Login | undefined;
+  public user: Login["email"] | Login["email"] | any;
 
-  constructor(private loginService : LoginService, private userService : UserService) { }
+  constructor(
+    private loginService: LoginService) { }
 
   ngOnInit(): void {
   }
 
-
-  formSubmit(addForm: NgForm){
+  formSubmit(addForm: NgForm) {
     this.userLogin = addForm.value;
     console.log(this.userLogin);
-    if(this.userLogin?.username == '' || this.userLogin?.username == null){
+    if (
+      this.userLogin?.username == '' ||
+      this.userLogin?.username == null) {
       Swal.fire({
         position: 'center',
         icon: 'warning',
@@ -41,7 +41,10 @@ export class SignupComponent implements OnInit {
         timer: 1200
       })
       return;
-    } else if(this.userLogin.email == '' || this.userLogin.email == null || !(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(this.userlogin.email))){
+    } else if (
+      this.userLogin.email == '' ||
+      this.userLogin.email == null ||
+      !(/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(this.userlogin.email))) {
       Swal.fire({
         position: 'center',
         icon: 'warning',
@@ -50,14 +53,10 @@ export class SignupComponent implements OnInit {
         timer: 1200
       })
       return;
-    } else if(this.userLogin.password == '' || this.userLogin.password == null || !(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{8,}$/.test(this.userLogin.password)) ){
-/*       Swal.fire({
-        position: 'center',
-        icon: 'warning',
-        title: 'La contraseña es requerida',
-        showConfirmButton: false,
-        timer: 1200
-      }) */
+    } else if (
+      this.userLogin.password == '' ||
+      this.userLogin.password == null ||
+      !(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{8,}$/.test(this.userLogin.password))) {
       Swal.fire({
         icon: 'info',
         title: 'Ingresa una contraseña que:',
@@ -66,7 +65,7 @@ export class SignupComponent implements OnInit {
       return;
     }
 
-    this.loginService.addUserlogin(this.userLogin).subscribe( {
+    this.loginService.addUserlogin(this.userLogin).subscribe({
       next: (data) => {
         console.log(data);
         Swal.fire(
@@ -74,7 +73,7 @@ export class SignupComponent implements OnInit {
           'Usuario registrado con éxito en el sistema',
           'success');
       },
-      error:(error:HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -82,26 +81,6 @@ export class SignupComponent implements OnInit {
         })
       }
     })
-
-/*     this.userService.updateUser(this.user).subscribe( {
-      next: (data) => {
-        
-        console.log(data);
-        Swal.fire(
-          'Veremos',
-          'Usuario registrado con éxito en el sistema',
-          'success');
-      },
-      error:(error:HttpErrorResponse) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: '¡Ha ocurrido un error en el sistema!'
-        })
-      }
-    }) */
-
   }
-
 
 }

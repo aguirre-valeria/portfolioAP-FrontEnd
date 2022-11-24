@@ -1,3 +1,4 @@
+import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
@@ -5,31 +6,30 @@ import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 
 const routes: Routes = [
+  { path: '404', 
+    pathMatch: 'full', 
+    component: NotfoundComponent,
+  },
   {
     path : '',
     component : HomeComponent,
-    pathMatch : 'full'
-  },
-  {
-    path : 'home',
-    component : HomeComponent,
-    pathMatch : 'full'
   },
   {
     path : 'login',
     component : LoginComponent,
-    pathMatch : 'full'
   },
   {
     path : 'signup',
     component : SignupComponent,
-    pathMatch : 'full'
   },
   {
     path : ':username',
     component : HomeComponent,
-    pathMatch : 'full'
   },
+  { path: '**', 
+    redirectTo: '404' 
+  },
+  
 ];
 
 @NgModule({

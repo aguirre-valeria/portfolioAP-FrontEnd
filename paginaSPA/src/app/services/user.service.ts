@@ -22,17 +22,9 @@ export class UserService {
     return this.http.get<User>(`${this.apiServerUrl}/user/id/15`);
   }
 
-/*   public getUserByUsername(): Observable<User> {
-    return this.http.get<User>(`${this.apiServerUrl}/users/get/muela12`);
-  } */
-
   public getUserByUserName(username? : string | null | undefined): Observable<User> {
     return this.http.get<User>(`${this.apiServerUrl}/user/${username}`);
   }
-
-/*   public getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiServerUrl}/user/all`);
-  } */
 
   public updateUser(user: User):Observable<User> {
     return this.http.put<User>(`${this.apiServerUrl}/user/update/${user.id}`, user);

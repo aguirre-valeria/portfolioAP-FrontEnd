@@ -14,10 +14,6 @@ export class EducationService {
 
   constructor(private http: HttpClient) { }
 
-/*   public getUserAdmin(id?:number): Observable<User> {
-    return this.http.get<User>(`${this.apiServerUrl}/user/${id}`);
-  } */
-
   public addEducation(idUser?: number, education?: Education): Observable<Education> {
     return this.http.post<Education>(`${this.apiServerUrl}/user/${idUser}/educations/add`, education);
   }

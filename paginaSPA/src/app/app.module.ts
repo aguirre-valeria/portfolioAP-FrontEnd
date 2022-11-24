@@ -16,6 +16,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { authInterceptorProviders } from './services/authentication/auth.interceptor.service';
+import { NotfoundComponent } from './pages/notfound/notfound.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { authInterceptorProviders } from './services/authentication/auth.interce
     ExperiencieEducationComponent,
     LoginComponent,
     HomeComponent,
-    SignupComponent
+    SignupComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,

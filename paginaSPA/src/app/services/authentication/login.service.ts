@@ -74,6 +74,4 @@ export class LoginService {
       return this.http.post(`${this.apiServerUrl}/users/`,user);
     }
 
-
-    
 }

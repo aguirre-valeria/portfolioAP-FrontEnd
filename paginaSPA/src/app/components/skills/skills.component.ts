@@ -1,12 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Skill } from 'src/app/models/skill.model';
 import { User } from 'src/app/models/user.model';
 import { LoginService } from 'src/app/services/authentication/login.service';
 import { SkillService } from 'src/app/services/skill.service';
 import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-skills',
@@ -15,19 +16,25 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class SkillsComponent implements OnInit {
   public user?: User | undefined;
-  // public skills: User["skills"] = [];
-  public skills : Skill | any;
-  public addSkills: Skill | any;
+  public skills: Skill | any;
   public editSkill: Skill | undefined;
   public deleteSkill: Skill | undefined;
-  loggedIn = false;
   public username?: string | undefined | null;
 
+  loggedIn = false;
+  modelForm!: FormGroup;
+
   constructor(
-    private skillService: SkillService, 
-    private userService: UserService, 
-    private loginService:LoginService, 
-    private route: ActivatedRoute) { }
+    private skillService: SkillService,
+    private userService: UserService,
+    private loginService: LoginService,
+    private route: ActivatedRoute,
+    formBuilder: FormBuilder) {
+    this.modelForm = formBuilder.group({
+      nameSkill: ['', Validators.required],
+      porcentageSkill: ['', [Validators.required, Validators.maxLength(3)]]
+    })
+  }
 
   ngOnInit(): void {
     if (this.loginService.isLoggedIn()) {
@@ -37,76 +44,63 @@ export class SkillsComponent implements OnInit {
       this.route.paramMap.subscribe((params: ParamMap) => {
         this.username = params.get('username');
       });
-      if(this.username === null) {
-        // console.log(this.username)
+      if (this.username === null) {
         this.getUserHome();
         this.loggedIn = false;
       } else {
         this.getUserByUsername(this.username);
         this.loggedIn = false;
-        // console.log(this.username)
       }
-      
     }
   }
 
   public getUserHome(): void {
-    this.userService.getUserAdmin().subscribe( {
+    this.userService.getUserAdmin().subscribe({
       next: (user: any) => {
         this.user = user;
+        this.skills = this.user?.skills;
       },
-      error:(error:HttpErrorResponse) => {
-        alert(error.message);
+      error: (error: HttpErrorResponse) => {
+        console.log(error.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: '¡Ha ocurrido un error!'
+        })
       }
     })
   }
 
-  public getUserByUsername(username : string | null | undefined): void {
-    /*     let userN = username;
-        console.log(this.username); */
-        this.userService.getUserByUserName(username).subscribe( {
-          next: (user: any) => {
-            this.user = user;
-            this.skills = this.user?.skills;
-          },
-          error:(error:HttpErrorResponse) => {
-            alert(error.message);
-          }
-        })
-      }
-
-/*   public getUser(): void {
-    this.loginService.getCurrentUser().subscribe( {
+  public getUserByUsername(username: string | null | undefined): void {
+    this.userService.getUserByUserName(username).subscribe({
       next: (user: any) => {
         this.user = user;
-      },
-      error:(error:HttpErrorResponse) => {
-        alert(error.message);
-      }
-    })
-  } */
-
-/*   public getUser(): void {
-    this.userService.getUser().subscribe({
-      next: (response: User) => {
-        this.user = response;
-        //console.log(this.user);
+        this.skills = this.user?.skills;
       },
       error: (error: HttpErrorResponse) => {
-        alert(error.message);
+        console.log(error.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: '¡Ha ocurrido un error!'
+        })
       }
     })
-  } */
+  }
 
   public getSkill(user?: User): void {
     this.loginService.getCurrentUser().subscribe({
       next: (user: any) => {
         this.user = user;
         this.skills = this.user?.skills;
-        // this.skills = Object.values(response.skills);
       },
       error: (error: HttpErrorResponse) => {
-        console.log('error');
+        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: '¡Ha ocurrido un error!'
+        })
       },
     });
   }
@@ -121,7 +115,6 @@ export class SkillsComponent implements OnInit {
       button.setAttribute('data-target', '#addSkillModal');
     } else if (mode === 'edit') {
       this.editSkill = skill;
-      // console.log(this.editSkill);
       button.setAttribute('data-target', '#editSkillModal');
     } else if (mode === 'delete') {
       this.deleteSkill = skill;
@@ -131,35 +124,39 @@ export class SkillsComponent implements OnInit {
     button.click();
   }
 
-  public addSkill(addForm: NgForm): void {
-    let skillTemp = addForm.value;
-    // console.log(skillTemp)
-    // this.user?.skills.push(addForm.value);
-    this.skillService.addSkill(this.user?.id, skillTemp).subscribe({
+  public addSkill(): void {
+    this.skillService.addSkill(this.user?.id, this.modelForm.value).subscribe({
       next: (response: Skill) => {
         this.getSkill();
-        addForm.reset();
+        this.modelForm.reset();
       },
       error: (error: HttpErrorResponse) => {
-        alert(error.message);
-        addForm.reset();
+        console.log(error.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: '¡Ha ocurrido un error!'
+        })
+        this.modelForm.reset();
       }
     })
   }
 
   public updateSkill(skill: Skill): void {
     let editSkill = skill;
-    // console.log(this.editSkill);
     let idS = editSkill.idSkill;
-    //console.log(idS)
-    let {idSkill , ...updatedSkill} = editSkill;
-    //console.log(updatedSkill)
+    let { idSkill, ...updatedSkill } = editSkill;
     this.skillService.updateSkill(this.user?.id, idS, updatedSkill).subscribe({
       next: (response: Skill) => {
         this.getSkill();
       },
       error: (error: HttpErrorResponse) => {
-        alert(error.message);
+        console.log(error.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: '¡Ha ocurrido un error!'
+        })
       }
     })
   }
@@ -167,13 +164,39 @@ export class SkillsComponent implements OnInit {
   public onDeleteSkill(idSkill: number): void {
     this.skillService.deleteSkill(this.user?.id, idSkill).subscribe({
       next: (response: void) => {
-        alert("La habilidad ha sido eliminada.");
+        Swal.fire({
+          icon: 'success',
+          title: 'Eliminada',
+          text: '¡La habilidad ha sido eliminada!'
+        })
         this.getSkill();
       },
       error: (error: HttpErrorResponse) => {
+        console.log(error.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: '¡Ha ocurrido un error!'
+        })
         this.getSkill();
       },
     });
   }
 
 }
+
+//OBTENER EVENTO DE TECLADO PARA VALIDAR
+/*   public onKeyUp(validatorsForm : any) {
+    const failedInputs = document.querySelector('.invalid');
+    const validInputs = document.querySelector('.valid')
+    const submitButton = document.getElementById('add-skill-form');
+    if(validatorsForm.nameSkill == '' || validatorsForm.nameSkill == null  || validatorsForm.nameSkill == undefined || validatorsForm.porcentageSkill == '' || validatorsForm.porcentageSkill == null  || validatorsForm.porcentageSkill == undefined){
+      console.log(validatorsForm)
+      failedInputs?.classList.remove('d-none');
+    } else {
+      validInputs?.classList.remove('d-none');
+      submitButton?.removeAttribute('disabled')
+      this.validatorsForm.nameSkill = ''
+      this.validatorsForm.porcentageSkill = ''
+    }
+  } */

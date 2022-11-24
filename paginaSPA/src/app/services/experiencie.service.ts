@@ -14,10 +14,6 @@ export class ExperiencieService {
 
   constructor(private http: HttpClient) { }
 
-/*   public getUser(id?:number): Observable<User> {
-    return this.http.get<User>(`${this.apiServerUrl}/user/${id}`);
-  } */
-
   public addExperiencie(idUser?: number, experiencie?: Experiencie): Observable<Experiencie> {
     return this.http.post<Experiencie>(`${this.apiServerUrl}/user/${idUser}/experiencies/add`, experiencie);
   }

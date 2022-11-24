@@ -3,14 +3,23 @@
   class="section-about-me text-white text-center container my-5 py-4"
   id="about-me"
 >
-  <div  class="text-end pe-4 me-4">
-    <button *ngIf="loggedIn"
+  <div class="text-end pe-4 me-4">
+    <button
+      *ngIf="loggedIn"
       type="button"
       class="btn btn-success fw-bold m-2"
       data-bs-toggle="modal"
       data-bs-target="#editProfileModal"
     >
       EDITAR PERFIL
+    </button>
+    <button
+      *ngIf="loggedIn"
+      type="button"
+      class="btn btn-warning fw-bold m-2"
+      (click)="getLink()"
+    >
+      OBTENER LINK
     </button>
   </div>
   <div class="row justify-content-center">
@@ -60,7 +69,9 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form #editForm="ngForm" (ngSubmit)="updateProfile(editForm.value)">
+        <form 
+        #editForm="ngForm" 
+        (ngSubmit)="updateProfile(editForm.value)">
           <div class="form-group">
             <input
               type="number"

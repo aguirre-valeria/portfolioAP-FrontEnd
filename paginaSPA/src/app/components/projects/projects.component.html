@@ -17,11 +17,13 @@
 
   <div
     class="row justify-content-center my-5 mx-sm-2"
-    *ngFor="let project of projects"
+    
   >
+  <div class="col-lg-4 center m-4" *ngFor="let project of projects">
     <div class="col-lg-4 center my-sm-2 px-0 m-sm-2">
       <div class="text-end pe-4 me-4">
-        <button *ngIf="loggedIn"
+        <button
+          *ngIf="loggedIn"
           type="button"
           class="btn btn-secondary fw-bold m-2"
           (click)="openModal('edit', project)"
@@ -30,7 +32,8 @@
         >
           <i class="bi bi-pencil-square"></i>
         </button>
-        <button *ngIf="loggedIn"
+        <button
+          *ngIf="loggedIn"
           type="button"
           class="btn btn-danger fw-bold m-2"
           (click)="openModal('delete', project)"
@@ -67,6 +70,7 @@
       </div>
     </div>
   </div>
+</div>
 </section>
 <!--END SECTION PROJECTS-->
 
@@ -94,16 +98,20 @@
       </div>
       <div class="modal-body">
         <!--FORM OF MODAL-->
-        <form #addForm="ngForm" (ngSubmit)="addProject(addForm)">
+        <form
+          #addForm="ngForm"
+          [formGroup]="modelForm"
+          (ngSubmit)="addProject()"
+        >
           <div class="form-group">
             <label for="titleProj">Título</label>
             <input
               type="text"
-              ngModel
               name="titleProj"
               class="form-control"
               id="titleProj"
               placeholder="Título del proyecto"
+              formControlName="titleProj"
               required
             />
           </div>
@@ -111,11 +119,11 @@
             <label for="descriptionProj">Descripción</label>
             <input
               type="text"
-              ngModel
               name="descriptionProj"
               class="form-control"
               id="descripcionProj"
               placeholder="Descripción del proyecto"
+              formControlName="descriptionProj"
               required
             />
           </div>
@@ -123,11 +131,11 @@
             <label for="urlPhoto">URL de Foto</label>
             <input
               type="text"
-              ngModel
               name="urlPhoto"
               class="form-control"
               id="urlPhoto"
               placeholder="URL foto del proyecto"
+              formControlName="urlPhoto"              
               required
             />
           </div>
@@ -135,11 +143,11 @@
             <label for="urlGitHubProj">URL GitHub</label>
             <input
               type="text"
-              ngModel
               name="urlGitHubProj"
               class="form-control"
               id="urlGitHubProj"
               placeholder="URL de GitHub"
+              formControlName="urlGitHubProj"
               required
             />
           </div>
@@ -147,11 +155,11 @@
             <label for="urlDemo">URL Demo</label>
             <input
               type="text"
-              ngModel
               name="urlDemo"
               class="form-control"
               id="urlDemo"
               placeholder="URL de Demo"
+              formControlName="urlDemo"
               required
             />
           </div>
@@ -166,8 +174,9 @@
           type="submit"
           class="btn btn-primary"
           id="add-project-form"
-          (click)="addProject(addForm)"
+          (click)="addProject()"
           data-bs-dismiss="modal"
+          [disabled]="modelForm.invalid"
         >
           Guardar
         </button>

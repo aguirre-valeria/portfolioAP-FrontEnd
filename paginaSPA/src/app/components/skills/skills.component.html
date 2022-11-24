@@ -16,28 +16,10 @@
   </div>
   <div
     class="container__skills row justify-content-center gap-3"
-    *ngFor="let skill of skills"
+    
   >
-    <div class="text-end pe-4 me-4">
-      <button *ngIf="loggedIn"
-        type="button"
-        class="btn btn-secondary fw-bold m-2"
-        (click)="openModal('edit', skill)"
-        data-bs-toggle="modal"
-        data-bs-target="#editSkillModal"
-      >
-        <i class="bi bi-pencil-square"></i>
-      </button>
-      <button *ngIf="loggedIn"
-        type="button"
-        class="btn btn-danger fw-bold m-2"
-        (click)="openModal('delete', skill)"
-        data-bs-toggle="modal"
-        data-bs-target="#deleteSkillModal"
-      >
-        <i class="bi bi-trash3-fill"></i>
-      </button>
-    </div>
+  <div class="col-md-3 d-flex justify-content-center" *ngFor="let skill of skills">
+    
     <div class="skill">
       <div
         class="percent"
@@ -54,7 +36,31 @@
         </div>
       </div>
     </div>
+
+    <div class="text-end pe-4 me-4">
+      <button
+        *ngIf="loggedIn"
+        type="button"
+        class="btn btn-secondary fw-bold m-2"
+        (click)="openModal('edit', skill)"
+        data-bs-toggle="modal"
+        data-bs-target="#editSkillModal"
+      >
+        <i class="bi bi-pencil-square"></i>
+      </button>
+      <button
+        *ngIf="loggedIn"
+        type="button"
+        class="btn btn-danger fw-bold m-2"
+        (click)="openModal('delete', skill)"
+        data-bs-toggle="modal"
+        data-bs-target="#deleteSkillModal"
+      >
+        <i class="bi bi-trash3-fill"></i>
+      </button>
+    </div>
   </div>
+</div>
 </section>
 <!--END SECTION SKILLS-->
 
@@ -82,29 +88,37 @@
       </div>
       <div class="modal-body">
         <!--FORM OF MODAL-->
-        <form #addForm="ngForm" (ngSubmit)="addSkill(addForm)">
+        <form
+          #addForm="ngForm"
+          [formGroup]="modelForm"
+          (ngSubmit)="addSkill()"
+        >
           <div class="form-group">
             <label for="nameSkill">Nombre de la habilidad</label>
             <input
               type="text"
-              ngModel
               name="nameSkill"
-              class="form-control"
+              class="form-control form-add-skill"
               id="nameSkill"
               placeholder="Nombre de la habilidad"
+              formControlName="nameSkill"
               required
             />
+            <div class="d-none valid">Valid Username.</div>
+            <div class="d-none invalid">Campo requerido.</div>
           </div>
+
           <div class="form-group">
             <label for="porcentageSkill">Porcentaje</label>
             <input
               type="number"
-              ngModel
               name="porcentageSkill"
-              class="form-control"
+              class="form-control form-add-skill"
               id="porcentageSkill"
               placeholder="Porcentaje"
+              formControlName="porcentageSkill"
               required
+              maxlength="3"
             />
           </div>
         </form>
@@ -118,8 +132,9 @@
           type="submit"
           class="btn btn-primary"
           id="add-skill-form"
-          (click)="addSkill(addForm)"
+          (click)="addSkill()"
           data-bs-dismiss="modal"
+          [disabled]="modelForm.invalid"
         >
           Guardar
         </button>

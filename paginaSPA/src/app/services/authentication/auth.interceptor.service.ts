@@ -6,15 +6,11 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor{
 
-  constructor(private loginService:LoginService) {
-
-  }
+  constructor(private loginService:LoginService) {  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let authReq = req;
-    // console.log(authReq);
     const token = this.loginService.getToken();
-    // console.log(authReq);
     if(token != null){
       authReq = authReq.clone({
         setHeaders : {authorization: `Bearer ${token}` }
@@ -22,7 +18,6 @@ export class AuthInterceptor implements HttpInterceptor{
     }
     return next.handle(authReq);
   }
-
 }
 
 export const authInterceptorProviders = [

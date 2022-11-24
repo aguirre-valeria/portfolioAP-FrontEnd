@@ -23,7 +23,8 @@
         <div class="main-timeline" *ngFor="let experiencie of experiencies">
           <!-- start one experience-->
           <div class="text-end pe-4 me-4">
-            <button *ngIf="loggedIn"
+            <button
+              *ngIf="loggedIn"
               type="button"
               class="btn btn-secondary fw-bold m-2"
               (click)="openModalExp('edit', experiencie)"
@@ -32,7 +33,8 @@
             >
               <i class="bi bi-pencil-square"></i>
             </button>
-            <button *ngIf="loggedIn"
+            <button
+              *ngIf="loggedIn"
               type="button"
               class="btn btn-danger fw-bold m-2"
               (click)="openModalExp('delete', experiencie)"
@@ -81,7 +83,8 @@
         <div class="main-timeline" *ngFor="let education of educations">
           <!-- start one education-->
           <div class="text-end pe-4 me-4">
-            <button *ngIf="loggedIn"
+            <button
+              *ngIf="loggedIn"
               type="button"
               class="btn btn-secondary fw-bold m-2"
               (click)="openModalEdu('edit', education)"
@@ -90,7 +93,8 @@
             >
               <i class="bi bi-pencil-square"></i>
             </button>
-            <button *ngIf="loggedIn"
+            <button
+              *ngIf="loggedIn"
               type="button"
               class="btn btn-danger fw-bold m-2"
               (click)="openModalEdu('delete', education)"
@@ -146,16 +150,19 @@
       </div>
       <div class="modal-body">
         <!--FORM OF MODAL-->
-        <form #addForm="ngForm" (ngSubmit)="addExperiencie(addForm)">
+        <form 
+        #addForm="ngForm" 
+        [formGroup]="modelFormExp"
+        (ngSubmit)="addExperiencie()">
           <div class="form-group">
             <label for="titleExp">Título</label>
             <input
               type="text"
-              ngModel
               name="titleExp"
               class="form-control"
               id="titleExp"
               placeholder="Título de la experiencia laboral"
+              formControlName="titleExp"
               required
             />
           </div>
@@ -163,11 +170,11 @@
             <label for="descriptionExp">Descripción</label>
             <input
               type="text"
-              ngModel
               name="descriptionExp"
               class="form-control"
               id="descripcionExp"
               placeholder="Descripción dela experiencia laboral"
+              formControlName="descripcionExp"
               required
             />
           </div>
@@ -175,11 +182,11 @@
             <label for="startDateExp">Fecha de inicio</label>
             <input
               type="number"
-              ngModel
               name="startDateExp"
               class="form-control"
               id="startDateExp"
               placeholder="Fecha de inicio"
+              formControlName="startDateExp"
               required
             />
           </div>
@@ -187,11 +194,11 @@
             <label for="endDateExp">Fecha de fin</label>
             <input
               type="number"
-              ngModel
               name="endDateExp"
               class="form-control"
               id="sendDateExp"
               placeholder="Fecha de fin"
+              formControlName="sendDateExp"
               required
             />
           </div>
@@ -206,8 +213,9 @@
           type="submit"
           class="btn btn-primary"
           id="add-experiencie-form"
-          (click)="addExperiencie(addForm)"
+          (click)="addExperiencie()"
           data-bs-dismiss="modal"
+          [disabled]="modelFormExp.invalid"
         >
           Guardar
         </button>
@@ -389,16 +397,19 @@
       </div>
       <div class="modal-body">
         <!--FORM OF MODAL-->
-        <form #addFormEdu="ngForm" (ngSubmit)="addEducation(addFormEdu)">
+        <form 
+        #addFormEdu="ngForm" 
+        [formGroup]="modelFormEdu"
+        (ngSubmit)="addEducation()">
           <div class="form-group">
             <label for="titleEdu">Título</label>
             <input
               type="text"
-              ngModel
               name="titleEdu"
               class="form-control"
               id="titleEdu"
               placeholder="Título de la educación"
+              formControlName="titleEdu"
               required
             />
           </div>
@@ -406,11 +417,11 @@
             <label for="descriptionEdu">Descripción</label>
             <input
               type="text"
-              ngModel
               name="descriptionEdu"
               class="form-control"
               id="descripcionEdu"
               placeholder="Descripción de la educación"
+              formControlName="descripcionEdu"
               required
             />
           </div>
@@ -418,11 +429,11 @@
             <label for="startDateEdu">Fecha de inicio</label>
             <input
               type="number"
-              ngModel
               name="startDateEdu"
               class="form-control"
               id="startDateEdu"
               placeholder="Fecha de inicio"
+              formControlName="startDateEdu"
               required
             />
           </div>
@@ -430,11 +441,11 @@
             <label for="endDateEdu">Fecha de fin</label>
             <input
               type="number"
-              ngModel
               name="endDateEdu"
               class="form-control"
               id="sendDateEdu"
               placeholder="Fecha de fin"
+              formControlName="sendDateEdu"
               required
             />
           </div>
@@ -449,8 +460,9 @@
           type="submit"
           class="btn btn-primary"
           id="add-education-form"
-          (click)="addEducation(addFormEdu)"
+          (click)="addEducation()"
           data-bs-dismiss="modal"
+          [disabled]="modelFormEdu.invalid"
         >
           Guardar
         </button>
